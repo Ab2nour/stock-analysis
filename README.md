@@ -18,3 +18,6 @@ Nos séries temporelles s'étalent (pour la majorité) du début des années 200
 - mplfinance => tracé de cours boursiers (Matplotlib Finance)
 - yfinance => scraping de cours boursiers (API de Yahoo Finance)
 - backtesting.py => évaluation de stratégies algorithmiques sur des données passées
+
+# Jeux de données
+- jeu de données potentiel : https://www.kaggle.com/datasets/paultimothymooney/stock-market-data
