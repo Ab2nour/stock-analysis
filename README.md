@@ -21,3 +21,5 @@ Nos séries temporelles s'étalent (pour la majorité) du début des années 200
 
 # Jeux de données
 - jeu de données potentiel : https://www.kaggle.com/datasets/paultimothymooney/stock-market-data
+
+yo c'est Jules
