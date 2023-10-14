@@ -12,3 +12,4 @@ todo:
 - gérer les conflits
 - procédure pull requests
 - finir les types plus hauts + rajouter les scopes
+- parler de gitignore
