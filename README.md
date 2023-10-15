@@ -1,7 +1,9 @@
 # Stock Analysis
 Analyse de cours boursiers dans le cadre du cours de Séries temporelles.
 
-![](https://www.section.io/engineering-education/how-to-plot-a-candlestick-chart-in-python-using-the-matplotlib-finance-api/btc.png)
+|                               |                        |
+|:-----------------------------:|:----------------------:|
+| ![](img/aapl-candlestick.png) | ![](img/aapl-pacf.png) |
 
 Etude de plusieurs actions issues du CAC40, S&P 500, crypto-monnaies (à décider...)
 
