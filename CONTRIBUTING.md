@@ -7,6 +7,7 @@ Utilisation du format des commits conventionnels
 - refactor
 - docs
 - style
+- perf
 
 todo: 
 - gérer les conflits
