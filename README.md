@@ -23,3 +23,16 @@ Nos séries temporelles s'étalent (pour la majorité) du début des années 200
 
 # Jeux de données
 - jeu de données potentiel : https://www.kaggle.com/datasets/paultimothymooney/stock-market-data
+
+# Organisation des dossiers
+
+Voici l'organisation des différents dossiers du projet :
+
+[`📂 data`](https://github.com/Ab2nour/stock-analysis/tree/main/data)
+> Contient les données d'actions au format csv.
+
+[`📂 img`](https://github.com/Ab2nour/stock-analysis/tree/main/img)
+> Contient les images utilisées dans la documentation.
+
+[`📂 src`](https://github.com/Ab2nour/stock-analysis/tree/main/src)
+> Contient le code source du projet.
