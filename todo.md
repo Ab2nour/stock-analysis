@@ -7,3 +7,5 @@
   - [ ] enlever la tendance
   - [ ] enlever la saisonnalité
   - [ ] enlever les cycle
+- [ ] afficher les rendements ( $X_t / X_{t-1}$ )
+- [ ] afficher la volatilité
