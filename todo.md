@@ -9,3 +9,17 @@
   - [ ] enlever les cycle
 - [ ] afficher les rendements ( $X_t / X_{t-1}$ )
 - [ ] afficher la volatilité
+- [ ] modèles:
+  - [ ] AR
+  - [ ] MA
+  - [ ] ARMA
+  - [ ] ARIMA
+
+# Todo cours
+- [ ] enlever la trend avec:  (=> mettre les **formules**)
+  - [ ] moyennes mobiles
+  - [ ] lissage exponentiel
+  - [ ] linear regression
+  - [ ] polynômes locaux
+  - [ ] B-splines
+  - [ ] (optionnel) General Additive Model (GAM)
