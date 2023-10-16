@@ -14,3 +14,4 @@ todo:
 - procédure pull requests
 - finir les types plus hauts + rajouter les scopes
 - parler de gitignore
+- apprendre à utiliser debugger
