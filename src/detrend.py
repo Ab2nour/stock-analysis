@@ -162,25 +162,29 @@ class detrend:
         self.y_predict = self.y_original - self.fitted_values
         return self.y_predict
 
-    def fancy_plot(self) -> None:
+    def fancy_plot(self, xticklabels=None) -> None:
         y_original = self.y_original
         y_fitted = self.fitted_values
         y_detrend = self.y_predict
 
         _, axs = plt.subplots(2, 1, figsize=(20, 15), gridspec_kw={"hspace": 0.35})
+        # main plot
+        plt.suptitle("Detrend visual summary")
 
         # first plot
         axs[0].plot(np.arange(len(y_original)), y_original, label="Original price")
         axs[0].plot(np.arange(len(y_original)), y_fitted, label="Trend")
         axs[0].set_title("Orignal time series with fitted trend curve")
+        axs[0].set_xlabel("Date")
         axs[0].set_ylabel("Price")
         axs[0].legend()
+        if xticklabels is not None:
+            axs[0].set_xticklabels(xticklabels)
 
         # second plot
         axs[1].plot(np.arange(len(y_original)), y_detrend)
         axs[1].set_title("Time series without trend")
         axs[1].set_xlabel("Date")
         axs[1].set_ylabel("Price fluctuation")
-
-        # main plot
-        plt.suptitle("Detrend visual summary")
+        if xticklabels is not None:
+            axs[1].set_xticklabels(xticklabels)
