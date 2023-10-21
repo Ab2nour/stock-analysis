@@ -22,9 +22,9 @@
 
 # Todo cours
 - [ ] enlever la trend avec:  (=> mettre les **formules**)
-  - [ ] moyennes mobiles
+  - [x] moyennes mobiles
   - [ ] lissage exponentiel
-  - [ ] linear regression
-  - [ ] polynômes locaux
-  - [ ] B-splines
+  - [x] linear regression
+  - [x] polynômes locaux
+  - [x] B-splines
   - [ ] (optionnel) General Additive Model (GAM)
