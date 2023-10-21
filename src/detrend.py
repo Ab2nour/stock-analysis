@@ -149,6 +149,7 @@ class detrend:
         """
         fitted_values = self.method(y)
         self.fitted_values = np.array(fitted_values).ravel()
+        return self.fitted_values
 
     def predict(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
         """_summary_
