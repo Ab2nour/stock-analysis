@@ -131,7 +131,7 @@ class detrend:
             "BSplines": self._BSplines,
             "ExponentialMA": self._ExponentialMA,
         }
-
+        self.method_name = method
         self.method = methods[method]
         self.poly_order = poly_order
         self.n_segments = n_segments
@@ -169,7 +169,7 @@ class detrend:
 
         _, axs = plt.subplots(2, 1, figsize=(20, 15), gridspec_kw={"hspace": 0.35})
         # main plot
-        plt.suptitle(f"Visual summary of detrending using {self.method}")
+        plt.suptitle(f"Visual summary of detrending using {self.method_name}")
 
         # first plot
         axs[0].plot(np.arange(len(y_original)), y_original, label="Original price")
