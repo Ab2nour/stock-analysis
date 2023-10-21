@@ -169,7 +169,7 @@ class detrend:
 
         _, axs = plt.subplots(2, 1, figsize=(20, 15), gridspec_kw={"hspace": 0.35})
         # main plot
-        plt.suptitle("Detrend visual summary")
+        plt.suptitle(f"Visual summary of detrending using {self.method}")
 
         # first plot
         axs[0].plot(np.arange(len(y_original)), y_original, label="Original price")
