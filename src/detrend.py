@@ -3,6 +3,7 @@ from statsmodels.tsa.deterministic import DeterministicProcess
 from scipy import interpolate
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 class detrend:
@@ -147,18 +148,39 @@ class detrend:
         Returns:
             np.ndarray: fitted values, 1 dimensional array of length len(y)
         """
-        fitted_values = self.method(y)
+        self.y_original = y
+        fitted_values = self.method(self.y_original)
         self.fitted_values = np.array(fitted_values).ravel()
         return self.fitted_values
 
-    def predict(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+    def predict(self) -> np.ndarray:
         """_summary_
-
-        Args:
-            y (np.ndarray): time series 1 dimensional array
 
         Returns:
             np.ndarray: detrended values, 1 dimensional array of length len(y)
         """
-        self.y_predict = y - self.fitted_values
+        self.y_predict = self.y_original - self.fitted_values
         return self.y_predict
+
+    def fancy_plot(self) -> None:
+        y_original = self.y_original
+        y_fitted = self.fitted_values
+        y_detrend = self.y_predict
+
+        _, axs = plt.subplots(2, 1, figsize=(20, 15), gridspec_kw={"hspace": 0.35})
+
+        # first plot
+        axs[0].plot(np.arange(len(y_original)), y_original, label="Original price")
+        axs[0].plot(np.arange(len(y_original)), y_fitted, label="Trend")
+        axs[0].set_title("Orignal time series with fitted trend curve")
+        axs[0].set_ylabel("Price")
+        axs[0].legend()
+
+        # second plot
+        axs[1].plot(np.arange(len(y_original)), y_detrend)
+        axs[1].set_title("Time series without trend")
+        axs[1].set_xlabel("Date")
+        axs[1].set_ylabel("Price fluctuation")
+
+        # main plot
+        plt.suptitle("Detrend visual summary")
