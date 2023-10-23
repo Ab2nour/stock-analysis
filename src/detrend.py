@@ -136,8 +136,8 @@ class Detrend:
         }
 
         # Define x and y
-        time_dummy = np.arange(len(y))  # time dummy, x
-        price = np.array(y)  # price, f(x)
+        time_dummy = np.arange(len(y))
+        price = np.array(y)
 
         # Define t the vector of knots,
         # c the B-splines coefficients
