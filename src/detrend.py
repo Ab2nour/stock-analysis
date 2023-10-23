@@ -8,6 +8,30 @@ import matplotlib.pyplot as plt
 
 
 class detrend:
+    def __init__(
+        self,
+        method: str = "LinearRegression",
+        poly_order: int = 2,
+        n_segments: int = 5,
+        window: int = 100,
+        alpha: float = 0.05,
+        bsplines_factors: tuple = (10, 3),
+    ) -> None:
+        methods: dict[str, Callable] = {
+            "LinearRegression": self._LinearRegression,
+            "PolynomialRegression": self._PolynomialRegression,
+            "LinearMA": self._LinearMA,
+            "BSplines": self._BSplines,
+            "ExponentialMA": self._ExponentialMA,
+        }
+        self.method_name = method
+        self.method = methods[method]  # self.method is now a function
+        self.poly_order = poly_order
+        self.n_segments = n_segments
+        self.window = window
+        self.alpha = alpha
+        self.smoothing_factor, self.degree = bsplines_factors
+
     def _LinearRegression(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
         """
         returns fitted values with the simple linear regression method
@@ -127,30 +151,6 @@ class detrend:
         y_interpolate = spline(x)
 
         return y_interpolate, parameters_output
-
-    def __init__(
-        self,
-        method: str = "LinearRegression",
-        poly_order: int = 2,
-        n_segments: int = 5,
-        window: int = 100,
-        alpha: float = 0.05,
-        bsplines_factors: tuple = (10, 3),
-    ) -> None:
-        methods: dict[str, Callable] = {
-            "LinearRegression": self._LinearRegression,
-            "PolynomialRegression": self._PolynomialRegression,
-            "LinearMA": self._LinearMA,
-            "BSplines": self._BSplines,
-            "ExponentialMA": self._ExponentialMA,
-        }
-        self.method_name = method
-        self.method = methods[method]  # self.method is now a function
-        self.poly_order = poly_order
-        self.n_segments = n_segments
-        self.window = window
-        self.alpha = alpha
-        self.smoothing_factor, self.degree = bsplines_factors
 
     def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
         """_summary_
