@@ -132,7 +132,7 @@ class detrend:
             "ExponentialMA": self._ExponentialMA,
         }
         self.method_name = method
-        self.method = methods[method]
+        self.method = methods[method]  # self.method is now a function
         self.poly_order = poly_order
         self.n_segments = n_segments
         self.window = window
