@@ -176,6 +176,12 @@ class Detrend:
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
+        """plot two graphs : the original data and its fitted trend curve ; the detrended data
+
+        Args:
+            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
+            financial data. Defaults to None.
+        """
         y_original = self.y_original
         y_fitted = self.fitted_values
         y_detrend = self.y_predict
