@@ -38,6 +38,10 @@ class detrend:
         # Choix de l'ordre de la régression et du nombre de segments
         order = self.poly_order
         n_segments = self.n_segments
+        parameters_output = {
+            "Polynomial order": order,
+            "Number of segments": n_segments,
+        }
 
         # Create deterministic process (X)
         dp = DeterministicProcess(
@@ -71,7 +75,7 @@ class detrend:
             y_pred_segment = model.predict(X_segment)
             y_pred_segments = np.append(y_pred_segments, y_pred_segment)
 
-        return y_pred_segments
+        return y_pred_segments, parameters_output
 
     def _LinearMA(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
         """
@@ -149,7 +153,7 @@ class detrend:
             np.ndarray: fitted values, 1 dimensional array of length len(y)
         """
         self.y_original = y
-        fitted_values = self.method(self.y_original)
+        fitted_values, self.fitted_parameters = self.method(self.y_original)
         self.fitted_values = np.array(fitted_values).ravel()
         return self.fitted_values
 
@@ -166,10 +170,16 @@ class detrend:
         y_original = self.y_original
         y_fitted = self.fitted_values
         y_detrend = self.y_predict
+        fitted_parameters = self.fitted_parameters
+        parameters_string = "\n".join(
+            f"{key}: {value}" for key, value in fitted_parameters.items()
+        )
 
         _, axs = plt.subplots(2, 1, figsize=(20, 15), gridspec_kw={"hspace": 0.35})
         # main plot
-        plt.suptitle(f"Visual summary of detrending using {self.method_name}")
+        plt.suptitle(
+            f"Visual summary of detrending using {self.method_name} with\n{parameters_string}"
+        )
 
         # first plot
         axs[0].plot(np.arange(len(y_original)), y_original, label="Original price")
