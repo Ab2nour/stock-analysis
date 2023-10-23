@@ -84,18 +84,20 @@ class detrend:
         returns fitted values with the linear centered mobile average method
         """
         window = self.window
+        parameters_output = {"Time span": window}
         linear_MA = (
             pd.DataFrame(y).rolling(center=True, window=window, min_periods=1).mean()
         )
-        return linear_MA
+        return linear_MA, parameters_output
 
     def _ExponentialMA(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
         """
         returns fitted values with the exponential mobile average method
         """
         alpha = self.alpha
+        parameters_output = {"Alpha": alpha}
         expo_MA = pd.DataFrame(y).ewm(alpha=alpha, adjust=False).mean()
-        return expo_MA
+        return expo_MA, parameters_output
 
     def _BSplines(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
         """
@@ -103,6 +105,10 @@ class detrend:
         """
         smoothing_factor = self.smoothing_factor
         degree = self.degree
+        parameters_output = {
+            "Smoothing factor": smoothing_factor,
+            "Degree": degree,
+        }
 
         # Define x and y
         x = np.arange(len(y))  # time dummy, x
@@ -119,7 +125,7 @@ class detrend:
         spline = interpolate.BSpline(t, c, k, extrapolate=False)
         y_interpolate = spline(x)
 
-        return y_interpolate
+        return y_interpolate, parameters_output
 
     def __init__(
         self,
