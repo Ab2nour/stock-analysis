@@ -174,7 +174,7 @@ class detrend:
         self.y_predict = self.y_original - self.fitted_values
         return self.y_predict
 
-    def fancy_plot(self, xticklabels=None) -> None:
+    def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
         y_original = self.y_original
         y_fitted = self.fitted_values
         y_detrend = self.y_predict
