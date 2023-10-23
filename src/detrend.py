@@ -1,3 +1,4 @@
+from typing import Callable
 from sklearn.linear_model import LinearRegression
 from statsmodels.tsa.deterministic import DeterministicProcess
 from scipy import interpolate
@@ -136,7 +137,7 @@ class detrend:
         alpha: float = 0.05,
         bsplines_factors: tuple = (10, 3),
     ) -> None:
-        methods = {
+        methods: dict[str, Callable] = {
             "LinearRegression": self._LinearRegression,
             "PolynomialRegression": self._PolynomialRegression,
             "LinearMA": self._LinearMA,
