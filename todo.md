@@ -15,6 +15,7 @@
 - [ ] afficher les rendements ( $X_t / X_{t-1}$ )
 - [ ] afficher la volatilité
 - [ ] Savitzky Golay => méthode utilisée par Vincent
+- [ ] seasonal plot & polar plot => demander à PE (ils ont fait cours action & saisonalité)
 - [ ] modèles:
   - [ ] AR
   - [ ] MA
