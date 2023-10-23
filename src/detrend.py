@@ -62,5 +62,5 @@ class LinearReg:
             y_detrend=self.y_predict,
             fitted_parameters=self.fitted_parameters,
             xticklabels=xticklabels,
-            method_name="linear regression",
+            method_name=self.method_name,
         )
