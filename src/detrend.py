@@ -7,7 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-class detrend:
+class Detrend:
     def __init__(
         self,
         method: str = "LinearRegression",
