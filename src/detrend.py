@@ -11,6 +11,8 @@ class detrend:
         """
         returns fitted values with the simple linear regression method
         """
+        parameters_output = None
+
         # Create deterministic process (X)
         dp = DeterministicProcess(
             index=np.arange(len(y)),  # dates from the training data
@@ -29,7 +31,7 @@ class detrend:
         model.fit(X, y)
         y_predict = model.predict(X)
 
-        return y_predict
+        return y_predict, parameters_output
 
     def _PolynomialRegression(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
         """
@@ -171,15 +173,18 @@ class detrend:
         y_fitted = self.fitted_values
         y_detrend = self.y_predict
         fitted_parameters = self.fitted_parameters
-        parameters_string = "\n".join(
-            f"{key}: {value}" for key, value in fitted_parameters.items()
-        )
 
         _, axs = plt.subplots(2, 1, figsize=(20, 15), gridspec_kw={"hspace": 0.35})
         # main plot
-        plt.suptitle(
-            f"Visual summary of detrending using {self.method_name} with\n{parameters_string}"
-        )
+        if fitted_parameters is None:
+            plt.suptitle(f"Visual summary of detrending using {self.method_name}")
+        else:
+            parameters_string = "\n".join(
+                f"{key}: {value}" for key, value in fitted_parameters.items()
+            )
+            plt.suptitle(
+                f"Visual summary of detrending using {self.method_name} with\n{parameters_string}"
+            )
 
         # first plot
         axs[0].plot(np.arange(len(y_original)), y_original, label="Original price")
