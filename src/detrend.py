@@ -5,6 +5,7 @@ from scipy import interpolate
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from detrend_fancy_plot import _fancy_plot
 
 
 class LinearReg:
@@ -55,37 +56,11 @@ class LinearReg:
             xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
             financial data. Defaults to None.
         """
-        y_original = self.y_original
-        y_fitted = self.fitted_values
-        y_detrend = self.y_predict
-        fitted_parameters = self.fitted_parameters
-
-        _, axs = plt.subplots(2, 1, figsize=(20, 15), gridspec_kw={"hspace": 0.35})
-        # main plot
-        if fitted_parameters is None:
-            plt.suptitle(f"Visual summary of detrending using {self.method_name}")
-        else:
-            parameters_string = "\n".join(
-                f"{key}: {value}" for key, value in fitted_parameters.items()
-            )
-            plt.suptitle(
-                f"Visual summary of detrending using {self.method_name} with\n{parameters_string}"
-            )
-
-        # first plot
-        axs[0].plot(np.arange(len(y_original)), y_original, label="Original price")
-        axs[0].plot(np.arange(len(y_original)), y_fitted, label="Trend")
-        axs[0].set_title("Orignal time series with fitted trend curve")
-        axs[0].set_xlabel("Date")
-        axs[0].set_ylabel("Price")
-        axs[0].legend()
-        if xticklabels is not None:
-            axs[0].set_xticklabels(xticklabels)
-
-        # second plot
-        axs[1].plot(np.arange(len(y_original)), y_detrend)
-        axs[1].set_title("Time series without trend")
-        axs[1].set_xlabel("Date")
-        axs[1].set_ylabel("Price fluctuation")
-        if xticklabels is not None:
-            axs[1].set_xticklabels(xticklabels)
+        _fancy_plot(
+            y_original=self.y_original,
+            y_fitted=self.fitted_values,
+            y_detrend=self.y_predict,
+            fitted_parameters=self.fitted_parameters,
+            xticklabels=xticklabels,
+            method_name="linear regression",
+        )
