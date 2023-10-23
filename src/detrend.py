@@ -15,7 +15,7 @@ class Detrend:
         n_segments: int = 5,
         window: int = 100,
         alpha: float = 0.05,
-        bsplines_factors: tuple = (10, 3),
+        bsplines_factors: tuple[int, int] = (10, 3),
     ) -> None:
         methods: dict[str, Callable] = {
             "LinearRegression": self._LinearRegression,
