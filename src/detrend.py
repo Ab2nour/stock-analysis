@@ -1,10 +1,8 @@
-from typing import Callable
 from sklearn.linear_model import LinearRegression
 from statsmodels.tsa.deterministic import DeterministicProcess
 from scipy import interpolate
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from detrend_fancy_plot import _fancy_plot
 
 
