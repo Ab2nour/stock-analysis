@@ -141,3 +141,48 @@ class PolynomialRegression:
             xticklabels=xticklabels,
             method_name=self.method_name,
         )
+
+
+class LinearMA:
+    def __init__(self, window: int = 100) -> None:
+        self.fitted_parameters = {"Time span": window}
+        self.window = window
+        self.method_name = "linear mobile average"
+
+    def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+        """
+        returns fitted values with the linear mobile average method
+        """
+        linear_MA = (
+            pd.DataFrame(y)
+            .rolling(center=True, window=self.window, min_periods=1)
+            .mean()
+        )
+
+        self.y_original = y
+        self.fitted_values = np.array(linear_MA).ravel()
+
+    def predict(self) -> np.ndarray:
+        """_summary_
+
+        Returns:
+            np.ndarray: detrended values, 1 dimensional array of length len(y)
+        """
+        self.y_predict = self.y_original - self.fitted_values
+        return self.y_predict
+
+    def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
+        """plot two graphs : the original data and its fitted trend curve ; the detrended data
+
+        Args:
+            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
+            financial data. Defaults to None.
+        """
+        _fancy_plot(
+            y_original=self.y_original,
+            y_fitted=self.fitted_values,
+            y_detrend=self.y_predict,
+            fitted_parameters=self.fitted_parameters,
+            xticklabels=xticklabels,
+            method_name=self.method_name,
+        )
