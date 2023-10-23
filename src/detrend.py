@@ -227,3 +227,61 @@ class ExponentialMA:
             xticklabels=xticklabels,
             method_name=self.method_name,
         )
+
+
+class BSplines:
+    def __init__(self, smoothing_factor: int = 10, degree: int = 3) -> None:
+        self.fitted_parameters = {
+            "Smoothing factor": smoothing_factor,
+            "Degree": degree,
+        }
+        self.smoothing_factor = smoothing_factor
+        self.degree = degree
+        self.method_name = "B-splines"
+
+    def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+        """
+        returns fitted values with the B-splines method
+        """
+        # Define x and y
+        time_dummy = np.arange(len(y))
+        price = np.array(y)
+
+        # Define t the vector of knots,
+        # c the B-splines coefficients
+        # and k the degree of the splines
+        t, c, k = interpolate.splrep(
+            x=time_dummy, y=price, s=self.smoothing_factor, k=self.degree
+        )
+
+        # Interpolate the prices
+        spline = interpolate.BSpline(t, c, k, extrapolate=False)
+        y_interpolate = spline(time_dummy)
+
+        self.y_original = y
+        self.fitted_values = np.array(y_interpolate).ravel()
+
+    def predict(self) -> np.ndarray:
+        """_summary_
+
+        Returns:
+            np.ndarray: detrended values, 1 dimensional array of length len(y)
+        """
+        self.y_predict = self.y_original - self.fitted_values
+        return self.y_predict
+
+    def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
+        """plot two graphs : the original data and its fitted trend curve ; the detrended data
+
+        Args:
+            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
+            financial data. Defaults to None.
+        """
+        _fancy_plot(
+            y_original=self.y_original,
+            y_fitted=self.fitted_values,
+            y_detrend=self.y_predict,
+            fitted_parameters=self.fitted_parameters,
+            xticklabels=xticklabels,
+            method_name=self.method_name,
+        )
