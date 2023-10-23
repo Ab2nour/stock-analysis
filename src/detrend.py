@@ -136,14 +136,14 @@ class Detrend:
         }
 
         # Define x and y
-        x = np.arange(len(y))  # time dummy, x
-        y = np.array(y)  # price, f(x)
+        time_dummy = np.arange(len(y))  # time dummy, x
+        price = np.array(y)  # price, f(x)
 
         # Define t the vector of knots,
         # c the B-splines coefficients
         # and k the degree of the splines
         t, c, k = interpolate.splrep(
-            x, y, s=smoothing_factor, k=degree
+            x=time_dummy, y=price, s=smoothing_factor, k=degree
         )  # s: smoothing factor
 
         # Interpolate the prices
