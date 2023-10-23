@@ -148,7 +148,7 @@ class Detrend:
 
         # Interpolate the prices
         spline = interpolate.BSpline(t, c, k, extrapolate=False)
-        y_interpolate = spline(x)
+        y_interpolate = spline(time_dummy)
 
         return y_interpolate, parameters_output
 
