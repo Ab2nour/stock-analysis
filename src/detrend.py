@@ -64,3 +64,80 @@ class LinearReg:
             xticklabels=xticklabels,
             method_name=self.method_name,
         )
+
+
+class PolynomialRegression:
+    def __init__(self, order: int = 3, n_segments: int = 5) -> None:
+        self.fitted_parameters = {
+            "Polynomial order": order,
+            "Number of segments": n_segments,
+        }
+        self.order = order
+        self.n_segments = n_segments
+        self.method_name = "polynomial regression"
+
+    def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+        """_summary_
+
+        Args:
+            y (np.ndarray): time series 1 dimensional array
+        """
+        # Create deterministic process (X)
+        dp = DeterministicProcess(
+            index=np.arange(len(y)),  # dates from the training data
+            constant=True,  # dummy feature for the bias (y_intercept)
+            order=self.order,  # order of the time dummy (trend)
+            drop=False,  # drop terms if necessary to avoid collinearity
+        )
+
+        # `in_sample` creates features for the dates given in the `index` argument
+        X_dp = dp.in_sample()
+
+        # Convert data
+        X = np.array(X_dp)
+        y = np.array(y)
+
+        # Create segments
+        segment_length = len(y) // self.n_segments
+        y_segments = [
+            y[i : i + segment_length] for i in range(0, len(y), segment_length)
+        ]
+        X_segments = [
+            X[i : i + segment_length, :] for i in range(0, len(y), segment_length)
+        ]
+
+        # Fit and predict for each segment
+        y_pred_segments = np.array([])
+        for X_segment, y_segment in zip(X_segments, y_segments):
+            model = LinearRegression()
+            model.fit(X_segment, y_segment)
+            y_pred_segment = model.predict(X_segment)
+            y_pred_segments = np.append(y_pred_segments, y_pred_segment)
+
+        self.y_original = y
+        self.fitted_values = np.array(y_pred_segments).ravel()
+
+    def predict(self) -> np.ndarray:
+        """_summary_
+
+        Returns:
+            np.ndarray: detrended values, 1 dimensional array of length len(y)
+        """
+        self.y_predict = self.y_original - self.fitted_values
+        return self.y_predict
+
+    def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
+        """plot two graphs : the original data and its fitted trend curve ; the detrended data
+
+        Args:
+            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
+            financial data. Defaults to None.
+        """
+        _fancy_plot(
+            y_original=self.y_original,
+            y_fitted=self.fitted_values,
+            y_detrend=self.y_predict,
+            fitted_parameters=self.fitted_parameters,
+            xticklabels=xticklabels,
+            method_name=self.method_name,
+        )
