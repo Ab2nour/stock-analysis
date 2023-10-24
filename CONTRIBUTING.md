@@ -9,6 +9,7 @@
 - style (code) : espace, retour à la ligne, virgule : black
 - perf (code) : amélioration des performances
 - chore (tâche) : run une commande, exécuter un notebook
+- ci (continuous integration) : initialisation de ci.yml etc.
   
 todo: 
 - gérer les conflits
