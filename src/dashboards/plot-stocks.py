@@ -1,3 +1,4 @@
+"""Dashboard to plot a stock of your choice, showing its candlestick plot."""
 from dash import Dash, html, dcc, callback, Output, Input
 import plotly.express as px
 import pandas as pd
