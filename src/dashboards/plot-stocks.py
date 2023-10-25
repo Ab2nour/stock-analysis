@@ -46,6 +46,25 @@ app.layout = html.Div(
     Output("stock-candlestick-plot", "figure"), Input("dropdown-selection", "value")
 )
 def update_candlestick(value: str):
+    """
+    Update the candlestick plot.
+
+    Parameters
+    ----------
+    value : str
+        The name of the stock you want to display the candlestick plot.
+
+    Returns
+    -------
+    plotly.graph_objs.Figure
+        A Plotly figure representing the candlestick plot.
+
+    Example
+    -------
+    To update the candlestick plot for a stock with the symbol 'AAPL', you can call the function like this:
+
+    >>> update_candlestick("AAPL")
+    """
     df = stocks[value]
     fig_title = f"Cours de l'action {value}"  # todo: plot title figure
 
@@ -74,6 +93,25 @@ def update_candlestick(value: str):
 
 @callback(Output("stock-line-plot", "figure"), Input("dropdown-selection", "value"))
 def update_line_plot(value: str):
+    """
+    Update the line plot.
+
+    Parameters
+    ----------
+    value : str
+        The name of the stock you want to display the candlestick plot.
+
+    Returns
+    -------
+    plotly.graph_objs.Figure
+        A Plotly figure representing the line plot.
+
+    Example
+    -------
+    To update the line plot for a stock with the symbol 'AAPL', you can call the function like this:
+
+    >>> update_line_plot("AAPL")
+    """
     df = stocks[value]
     fig = px.line(df, y=["Open", "High", "Low", "Close"])
 
