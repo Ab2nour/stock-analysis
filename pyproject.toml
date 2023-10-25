@@ -17,6 +17,7 @@ yfinance = "^0.2.31"
 jupyter = "^1.0.0"
 mplfinance = "^0.12.10b0"
 dash = "^2.14.0"
+pydocstyle = "^6.3.0"
 
 
 [tool.poetry.group.dev.dependencies]
