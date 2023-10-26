@@ -44,5 +44,7 @@ except:
     pass  # Else do nothing
 
 for stock_name, detrend_data in zip(data_files.keys(), data_files.values()):
-    processed_filename = f"{stock_name}_detrend_{model_name}"
+    processed_filename = (
+        f"{stock_name[:-3]}_detrend_{model_name}.csv"  # delete ".csv" in stock_name
+    )
     detrend_data.to_csv(f"{processed_data_folder}/{processed_filename}")
