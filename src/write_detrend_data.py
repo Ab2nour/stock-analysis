@@ -25,13 +25,15 @@ data_files: dict = {
 ### DETREND FILES
 
 for stock_name, data in zip(data_files.keys(), data_files.values()):
+    # fit the model using the close price (arbitrary)
+    close_price = data["Close"]
+    detrend_model.fit(close_price)
+
     for data_type in data.columns[:-1]:  # data_type = Open / High etc. EXCEPT Volume
-        print(data_type)
         # load time series
         y = data[data_type]
         # detrend time series
-        detrend_model.fit(y)
-        y_predict = detrend_model.predict()
+        y_predict = detrend_model.predict(y)
         # overwrite original time series
         data[data_type] = y_predict
 
@@ -45,6 +47,6 @@ except:
 
 for stock_name, detrend_data in zip(data_files.keys(), data_files.values()):
     processed_filename = (
-        f"{stock_name[:-3]}_detrend_{model_name}.csv"  # delete ".csv" in stock_name
+        f"{stock_name[:-4]}_detrend_{model_name}.csv"  # delete ".csv" in stock_name
     )
     detrend_data.to_csv(f"{processed_data_folder}/{processed_filename}")
