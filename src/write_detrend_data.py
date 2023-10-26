@@ -5,8 +5,8 @@ from detrend import LinearReg, PolynomialRegression, LinearMA
 
 ### SPECIFY DETREND MODEL AND SUFFIX TO APPLY TO PROCESSED FILENAME
 
-detrend_model = LinearMA(window=100)
-model_name: str = "linearMA_window-100"
+detrend_model = PolynomialRegression(order=3, n_segments=20)
+model_name: str = "PolyReg_order-3_nsegments-20"
 
 ### GATHER FILES TO PROCESS
 
