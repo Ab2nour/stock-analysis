@@ -38,13 +38,16 @@ class LinearReg:
         self.y_original = y
         self.fitted_values = np.array(y_predict).ravel()
 
-    def predict(self) -> np.ndarray:
+    def predict(self, y: np.ndarray) -> np.ndarray:
         """_summary_
+
+        Args:
+            y (np.ndarray): 1 dimensional array of same length as y_original
 
         Returns:
             np.ndarray: detrended values, 1 dimensional array of length len(y)
         """
-        self.y_predict = self.y_original - self.fitted_values
+        self.y_predict = y - self.fitted_values
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
@@ -115,13 +118,16 @@ class PolynomialRegression:
         self.y_original = y
         self.fitted_values = np.array(y_pred_segments).ravel()
 
-    def predict(self) -> np.ndarray:
+    def predict(self, y: np.ndarray) -> np.ndarray:
         """_summary_
+
+        Args:
+            y (np.ndarray): 1 dimensional array of same length as y_original
 
         Returns:
             np.ndarray: detrended values, 1 dimensional array of length len(y)
         """
-        self.y_predict = self.y_original - self.fitted_values
+        self.y_predict = y - self.fitted_values
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
@@ -160,13 +166,16 @@ class LinearMA:
         self.y_original = y
         self.fitted_values = np.array(linear_MA).ravel()
 
-    def predict(self) -> np.ndarray:
+    def predict(self, y: np.ndarray) -> np.ndarray:
         """_summary_
+
+        Args:
+            y (np.ndarray): 1 dimensional array of same length as y_original
 
         Returns:
             np.ndarray: detrended values, 1 dimensional array of length len(y)
         """
-        self.y_predict = self.y_original - self.fitted_values
+        self.y_predict = y - self.fitted_values
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
@@ -201,13 +210,16 @@ class ExponentialMA:
         self.y_original = y
         self.fitted_values = np.array(expo_MA).ravel()
 
-    def predict(self) -> np.ndarray:
+    def predict(self, y: np.ndarray) -> np.ndarray:
         """_summary_
+
+        Args:
+            y (np.ndarray): 1 dimensional array of same length as y_original
 
         Returns:
             np.ndarray: detrended values, 1 dimensional array of length len(y)
         """
-        self.y_predict = self.y_original - self.fitted_values
+        self.y_predict = y - self.fitted_values
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
@@ -259,13 +271,16 @@ class BSplines:
         self.y_original = y
         self.fitted_values = np.array(y_interpolate).ravel()
 
-    def predict(self) -> np.ndarray:
+    def predict(self, y: np.ndarray) -> np.ndarray:
         """_summary_
+
+        Args:
+            y (np.ndarray): 1 dimensional array of same length as y_original
 
         Returns:
             np.ndarray: detrended values, 1 dimensional array of length len(y)
         """
-        self.y_predict = self.y_original - self.fitted_values
+        self.y_predict = y - self.fitted_values
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
