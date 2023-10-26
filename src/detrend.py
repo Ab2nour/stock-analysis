@@ -48,7 +48,7 @@ class LinearReg:
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
-        """plot two graphs : the original data and its fitted trend curve ; the detrended data
+        """Plot two graphs: the original data and its fitted trend curve; the detrended data
 
         Args:
             xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
@@ -125,7 +125,7 @@ class PolynomialRegression:
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
-        """plot two graphs : the original data and its fitted trend curve ; the detrended data
+        """Plot two graphs: the original data and its fitted trend curve; the detrended data
 
         Args:
             xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
@@ -194,7 +194,7 @@ class ExponentialMA:
 
     def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
         """
-        returns fitted values with the exponential mobile average method
+        Returns fitted values with the exponential mobile average method
         """
         expo_MA = pd.DataFrame(y).ewm(alpha=self.alpha, adjust=False).mean()
 
@@ -269,7 +269,7 @@ class BSplines:
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
-        """plot two graphs : the original data and its fitted trend curve ; the detrended data
+        """Plot two graphs: the original data and its fitted trend curve; the detrended data
 
         Args:
             xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
