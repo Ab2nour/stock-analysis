@@ -149,7 +149,7 @@ class LinearMA:
 
     def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
         """
-        returns fitted values with the linear mobile average method
+        Returns fitted values with the linear mobile average method
         """
         linear_MA = (
             pd.DataFrame(y)
@@ -170,7 +170,7 @@ class LinearMA:
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
-        """plot two graphs : the original data and its fitted trend curve ; the detrended data
+        """Plot two graphs: the original data and its fitted trend curve; the detrended data
 
         Args:
             xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
@@ -211,7 +211,7 @@ class ExponentialMA:
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
-        """plot two graphs : the original data and its fitted trend curve ; the detrended data
+        """Plot two graphs: the original data and its fitted trend curve; the detrended data
 
         Args:
             xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
@@ -239,7 +239,7 @@ class BSplines:
 
     def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
         """
-        returns fitted values with the B-splines method
+        Returns fitted values with the B-splines method
         """
         # Define x and y
         time_dummy = np.arange(len(y))

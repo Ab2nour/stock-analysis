@@ -11,7 +11,7 @@ def _fancy_plot(
     xticklabels: pd.core.indexes.base.Index | None = None,
     method_name: str = "",
 ) -> None:
-    """plot two graphs : the original data and its fitted trend curve ; the detrended data
+    """Plot two graphs: the original data and its fitted trend curve; the detrended data
 
     Args:
         xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
