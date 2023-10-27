@@ -1,8 +1,8 @@
 """Dashboard to plot a stock of your choice, showing its candlestick plot."""
-from dash import Dash, html, dcc, callback, Output, Input
-import plotly.express as px
 import pandas as pd
+import plotly.express as px
 import plotly.graph_objects as go
+from dash import Dash, Input, Output, callback, dcc, html
 
 data_folder = "data"
 
