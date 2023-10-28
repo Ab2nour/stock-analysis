@@ -1,9 +1,16 @@
 import pandas as pd
 import os
-from detrend import LinearReg, PolynomialRegression, LinearMA
 
-### INSURE YOU ARE IN SOURCE DIRECTORY
+os.chdir("src")
+try:
+    from detrend import LinearReg, PolynomialRegression, LinearMA
+except ModuleNotFoundError as error:
+    print(error)
+    exit()
 
+### INSURE YOU ARE IN SOURCE DIRECTORY FOR OS MODULE
+
+os.chdir("..")
 print(os.getcwd())
 
 ### SPECIFY DETREND MODEL AND DIRECTORY IN WHICH SAVE PROCESSED DATA
