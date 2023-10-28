@@ -52,10 +52,7 @@ for stock_name, data in zip(data_files.keys(), data_files.values()):
 
 ### WRITE PROCESSED FILES
 
-try:
-    os.makedirs(processed_data_folder)  # Create folder if needed
-except:
-    pass  # Else do nothing
+os.makedirs(processed_data_folder, exist_ok=True)  # Create folder if needed
 
 for stock_name, detrend_data in zip(data_files.keys(), data_files.values()):
     detrend_data.to_csv(f"{processed_data_folder}/{stock_name}")
