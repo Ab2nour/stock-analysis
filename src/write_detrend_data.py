@@ -2,15 +2,21 @@ import pandas as pd
 import os
 from detrend import LinearReg, PolynomialRegression, LinearMA
 
+### INSURE YOU ARE IN SOURCE DIRECTORY
 
-### SPECIFY DETREND MODEL AND SUFFIX TO APPLY TO PROCESSED FILENAME
+print(os.getcwd())
+
+### SPECIFY DETREND MODEL AND DIRECTORY IN WHICH SAVE PROCESSED DATA
 
 detrend_model = PolynomialRegression(order=3, n_segments=20)
-model_name: str = "PolyReg_order-3_nsegments-20"
+model_name: str = "PolynomialRegression"
+model_options: str = "order-3_nsegments-20"
+processed_data_folder = f"data/detrend_data/{model_name}/{model_options}"
+
 
 ### GATHER FILES TO PROCESS
 
-data_folder = "../data"
+data_folder = "data"
 filenames = [f for f in os.listdir(data_folder) if f.endswith(".csv")]
 
 ### READ FILES
@@ -39,14 +45,10 @@ for stock_name, data in zip(data_files.keys(), data_files.values()):
 
 ### WRITE PROCESSED FILES
 
-processed_data_folder = "../data/detrend_data"
 try:
-    os.mkdir(processed_data_folder)  # Create folder if needed
+    os.makedirs(processed_data_folder)  # Create folder if needed
 except:
     pass  # Else do nothing
 
 for stock_name, detrend_data in zip(data_files.keys(), data_files.values()):
-    processed_filename = (
-        f"{stock_name[:-4]}_detrend_{model_name}.csv"  # delete ".csv" in stock_name
-    )
-    detrend_data.to_csv(f"{processed_data_folder}/{processed_filename}")
+    detrend_data.to_csv(f"{processed_data_folder}/{stock_name}")
