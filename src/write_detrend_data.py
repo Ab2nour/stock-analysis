@@ -15,9 +15,9 @@ print(os.getcwd())
 
 ### SPECIFY DETREND MODEL AND DIRECTORY IN WHICH SAVE PROCESSED DATA
 
-detrend_model = PolynomialRegression(order=3, n_segments=20)
-model_name: str = "PolynomialRegression"
-model_options: str = "order-3_nsegments-20"
+detrend_model = LinearMA(window=200)
+model_name: str = "LinearMA"
+model_options: str = "window-200"
 processed_data_folder = f"data/detrend_data/{model_name}/{model_options}"
 
 
