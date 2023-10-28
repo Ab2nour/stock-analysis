@@ -17,7 +17,7 @@ print(os.getcwd())
 
 detrend_model = LinearMA(window=200)
 model_name: str = "LinearMA"
-model_options: str = "window-200"
+model_options: str = "window-200"  # format: option1-value_option2-value
 processed_data_folder = f"data/detrend_data/{model_name}/{model_options}"
 
 
