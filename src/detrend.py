@@ -1,43 +1,22 @@
-from typing import Callable
 from sklearn.linear_model import LinearRegression
 from statsmodels.tsa.deterministic import DeterministicProcess
 from scipy import interpolate
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+from detrend_fancy_plot import _fancy_plot
 
 
-class Detrend:
-    def __init__(
-        self,
-        method: str = "LinearRegression",
-        poly_order: int = 2,
-        n_segments: int = 5,
-        window: int = 100,
-        alpha: float = 0.05,
-        bsplines_factors: tuple[int, int] = (10, 3),
-    ) -> None:
-        methods: dict[str, Callable] = {
-            "LinearRegression": self._LinearRegression,
-            "PolynomialRegression": self._PolynomialRegression,
-            "LinearMA": self._LinearMA,
-            "BSplines": self._BSplines,
-            "ExponentialMA": self._ExponentialMA,
-        }
-        self.method_name = method
-        self.method = methods[method]  # self.method is now a function
-        self.poly_order = poly_order
-        self.n_segments = n_segments
-        self.window = window
-        self.alpha = alpha
-        self.smoothing_factor, self.degree = bsplines_factors
+class LinearReg:
+    def __init__(self) -> None:
+        self.fitted_parameters = None  # for further implementation
+        self.method_name = "linear regression"
 
-    def _LinearRegression(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+    def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+        """_summary_
+
+        Args:
+            y (np.ndarray): time series 1 dimensional array
         """
-        returns fitted values with the simple linear regression method
-        """
-        parameters_output = None
-
         # Create deterministic process (X)
         dp = DeterministicProcess(
             index=np.arange(len(y)),  # dates from the training data
@@ -56,25 +35,59 @@ class Detrend:
         model.fit(X, y)
         y_predict = model.predict(X)
 
-        return y_predict, parameters_output
+        self.y_original = y
+        self.fitted_values = np.array(y_predict).ravel()
 
-    def _PolynomialRegression(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+    def predict(self, y: np.ndarray) -> np.ndarray:
+        """_summary_
+
+        Args:
+            y (np.ndarray): 1 dimensional array of same length as y_original
+
+        Returns:
+            np.ndarray: detrended values, 1 dimensional array of length len(y)
         """
-        returns fitted values with the segmented polynomial regression method
+        self.y_predict = y - self.fitted_values
+        return self.y_predict
+
+    def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
+        """Plot two graphs: the original data and its fitted trend curve; the detrended data
+
+        Args:
+            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
+            financial data. Defaults to None.
         """
-        # Choix de l'ordre de la régression et du nombre de segments
-        order = self.poly_order
-        n_segments = self.n_segments
-        parameters_output = {
+        _fancy_plot(
+            y_original=self.y_original,
+            y_fitted=self.fitted_values,
+            y_detrend=self.y_predict,
+            fitted_parameters=self.fitted_parameters,
+            xticklabels=xticklabels,
+            method_name=self.method_name,
+        )
+
+
+class PolynomialRegression:
+    def __init__(self, order: int = 3, n_segments: int = 5) -> None:
+        self.fitted_parameters = {
             "Polynomial order": order,
             "Number of segments": n_segments,
         }
+        self.order = order
+        self.n_segments = n_segments
+        self.method_name = "polynomial regression"
 
+    def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+        """_summary_
+
+        Args:
+            y (np.ndarray): time series 1 dimensional array
+        """
         # Create deterministic process (X)
         dp = DeterministicProcess(
             index=np.arange(len(y)),  # dates from the training data
             constant=True,  # dummy feature for the bias (y_intercept)
-            order=order,  # order of the time dummy (trend)
+            order=self.order,  # order of the time dummy (trend)
             drop=False,  # drop terms if necessary to avoid collinearity
         )
 
@@ -86,7 +99,7 @@ class Detrend:
         y = np.array(y)
 
         # Create segments
-        segment_length = len(y) // n_segments
+        segment_length = len(y) // self.n_segments
         y_segments = [
             y[i : i + segment_length] for i in range(0, len(y), segment_length)
         ]
@@ -102,39 +115,144 @@ class Detrend:
             y_pred_segment = model.predict(X_segment)
             y_pred_segments = np.append(y_pred_segments, y_pred_segment)
 
-        return y_pred_segments, parameters_output
+        self.y_original = y
+        self.fitted_values = np.array(y_pred_segments).ravel()
 
-    def _LinearMA(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+    def predict(self, y: np.ndarray) -> np.ndarray:
+        """_summary_
+
+        Args:
+            y (np.ndarray): 1 dimensional array of same length as y_original
+
+        Returns:
+            np.ndarray: detrended values, 1 dimensional array of length len(y)
         """
-        returns fitted values with the linear centered mobile average method
+        self.y_predict = y - self.fitted_values
+        return self.y_predict
+
+    def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
+        """Plot two graphs: the original data and its fitted trend curve; the detrended data
+
+        Args:
+            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
+            financial data. Defaults to None.
         """
-        window = self.window
-        parameters_output = {"Time span": window}
-        linear_MA = (
-            pd.DataFrame(y).rolling(center=True, window=window, min_periods=1).mean()
+        _fancy_plot(
+            y_original=self.y_original,
+            y_fitted=self.fitted_values,
+            y_detrend=self.y_predict,
+            fitted_parameters=self.fitted_parameters,
+            xticklabels=xticklabels,
+            method_name=self.method_name,
         )
-        return linear_MA, parameters_output
 
-    def _ExponentialMA(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
-        """
-        returns fitted values with the exponential mobile average method
-        """
-        alpha = self.alpha
-        parameters_output = {"Alpha": alpha}
-        expo_MA = pd.DataFrame(y).ewm(alpha=alpha, adjust=False).mean()
-        return expo_MA, parameters_output
 
-    def _BSplines(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+class LinearMA:
+    def __init__(self, window: int = 100) -> None:
+        self.fitted_parameters = {"Time span": window}
+        self.window = window
+        self.method_name = "linear mobile average"
+
+    def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
         """
-        returns fitted values with the BSplines interpolation method
+        Returns fitted values with the linear mobile average method
         """
-        smoothing_factor = self.smoothing_factor
-        degree = self.degree
-        parameters_output = {
+        linear_MA = (
+            pd.DataFrame(y)
+            .rolling(center=True, window=self.window, min_periods=1)
+            .mean()
+        )
+
+        self.y_original = y
+        self.fitted_values = np.array(linear_MA).ravel()
+
+    def predict(self, y: np.ndarray) -> np.ndarray:
+        """_summary_
+
+        Args:
+            y (np.ndarray): 1 dimensional array of same length as y_original
+
+        Returns:
+            np.ndarray: detrended values, 1 dimensional array of length len(y)
+        """
+        self.y_predict = y - self.fitted_values
+        return self.y_predict
+
+    def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
+        """Plot two graphs: the original data and its fitted trend curve; the detrended data
+
+        Args:
+            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
+            financial data. Defaults to None.
+        """
+        _fancy_plot(
+            y_original=self.y_original,
+            y_fitted=self.fitted_values,
+            y_detrend=self.y_predict,
+            fitted_parameters=self.fitted_parameters,
+            xticklabels=xticklabels,
+            method_name=self.method_name,
+        )
+
+
+class ExponentialMA:
+    def __init__(self, alpha: float = 0.05) -> None:
+        self.fitted_parameters = {"Alpha": alpha}
+        self.alpha = alpha
+        self.method_name = "exponential mobile average"
+
+    def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+        """
+        Returns fitted values with the exponential mobile average method
+        """
+        expo_MA = pd.DataFrame(y).ewm(alpha=self.alpha, adjust=False).mean()
+
+        self.y_original = y
+        self.fitted_values = np.array(expo_MA).ravel()
+
+    def predict(self, y: np.ndarray) -> np.ndarray:
+        """_summary_
+
+        Args:
+            y (np.ndarray): 1 dimensional array of same length as y_original
+
+        Returns:
+            np.ndarray: detrended values, 1 dimensional array of length len(y)
+        """
+        self.y_predict = y - self.fitted_values
+        return self.y_predict
+
+    def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
+        """Plot two graphs: the original data and its fitted trend curve; the detrended data
+
+        Args:
+            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
+            financial data. Defaults to None.
+        """
+        _fancy_plot(
+            y_original=self.y_original,
+            y_fitted=self.fitted_values,
+            y_detrend=self.y_predict,
+            fitted_parameters=self.fitted_parameters,
+            xticklabels=xticklabels,
+            method_name=self.method_name,
+        )
+
+
+class BSplines:
+    def __init__(self, smoothing_factor: int = 10, degree: int = 3) -> None:
+        self.fitted_parameters = {
             "Smoothing factor": smoothing_factor,
             "Degree": degree,
         }
+        self.smoothing_factor = smoothing_factor
+        self.degree = degree
+        self.method_name = "B-splines"
 
+    def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+        """
+        Returns fitted values with the B-splines method
+        """
         # Define x and y
         time_dummy = np.arange(len(y))
         price = np.array(y)
@@ -143,76 +261,40 @@ class Detrend:
         # c the B-splines coefficients
         # and k the degree of the splines
         t, c, k = interpolate.splrep(
-            x=time_dummy, y=price, s=smoothing_factor, k=degree
-        )  # s: smoothing factor
+            x=time_dummy, y=price, s=self.smoothing_factor, k=self.degree
+        )
 
         # Interpolate the prices
         spline = interpolate.BSpline(t, c, k, extrapolate=False)
         y_interpolate = spline(time_dummy)
 
-        return y_interpolate, parameters_output
+        self.y_original = y
+        self.fitted_values = np.array(y_interpolate).ravel()
 
-    def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
+    def predict(self, y: np.ndarray) -> np.ndarray:
         """_summary_
 
         Args:
-            y (np.ndarray): time series 1 dimensional array
-
-        Returns:
-            np.ndarray: fitted values, 1 dimensional array of length len(y)
-        """
-        self.y_original = y
-        fitted_values, self.fitted_parameters = self.method(self.y_original)
-        self.fitted_values = np.array(fitted_values).ravel()
-        return self.fitted_values
-
-    def predict(self) -> np.ndarray:
-        """_summary_
+            y (np.ndarray): 1 dimensional array of same length as y_original
 
         Returns:
             np.ndarray: detrended values, 1 dimensional array of length len(y)
         """
-        self.y_predict = self.y_original - self.fitted_values
+        self.y_predict = y - self.fitted_values
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
-        """plot two graphs : the original data and its fitted trend curve ; the detrended data
+        """Plot two graphs: the original data and its fitted trend curve; the detrended data
 
         Args:
             xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
             financial data. Defaults to None.
         """
-        y_original = self.y_original
-        y_fitted = self.fitted_values
-        y_detrend = self.y_predict
-        fitted_parameters = self.fitted_parameters
-
-        _, axs = plt.subplots(2, 1, figsize=(20, 15), gridspec_kw={"hspace": 0.35})
-        # main plot
-        if fitted_parameters is None:
-            plt.suptitle(f"Visual summary of detrending using {self.method_name}")
-        else:
-            parameters_string = "\n".join(
-                f"{key}: {value}" for key, value in fitted_parameters.items()
-            )
-            plt.suptitle(
-                f"Visual summary of detrending using {self.method_name} with\n{parameters_string}"
-            )
-
-        # first plot
-        axs[0].plot(np.arange(len(y_original)), y_original, label="Original price")
-        axs[0].plot(np.arange(len(y_original)), y_fitted, label="Trend")
-        axs[0].set_title("Orignal time series with fitted trend curve")
-        axs[0].set_xlabel("Date")
-        axs[0].set_ylabel("Price")
-        axs[0].legend()
-        if xticklabels is not None:
-            axs[0].set_xticklabels(xticklabels)
-
-        # second plot
-        axs[1].plot(np.arange(len(y_original)), y_detrend)
-        axs[1].set_title("Time series without trend")
-        axs[1].set_xlabel("Date")
-        axs[1].set_ylabel("Price fluctuation")
-        if xticklabels is not None:
-            axs[1].set_xticklabels(xticklabels)
+        _fancy_plot(
+            y_original=self.y_original,
+            y_fitted=self.fitted_values,
+            y_detrend=self.y_predict,
+            fitted_parameters=self.fitted_parameters,
+            xticklabels=xticklabels,
+            method_name=self.method_name,
+        )
