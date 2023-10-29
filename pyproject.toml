@@ -30,3 +30,8 @@ pandas-vet = "^2023.8.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203"
