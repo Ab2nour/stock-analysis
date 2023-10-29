@@ -786,6 +786,24 @@ attrs = ">=21.4"
 flake8 = ">=5.0"
 
 [[package]]
+name = "flake8-bugbear"
+version = "23.9.16"
+description = "A plugin for flake8 finding likely bugs and design problems in your program. Contains warnings that don't belong in pyflakes and pycodestyle."
+optional = false
+python-versions = ">=3.8.1"
+files = [
+    {file = "flake8-bugbear-23.9.16.tar.gz", hash = "sha256:90cf04b19ca02a682feb5aac67cae8de742af70538590509941ab10ae8351f71"},
+    {file = "flake8_bugbear-23.9.16-py3-none-any.whl", hash = "sha256:b182cf96ea8f7a8595b2f87321d7d9b28728f4d9c3318012d896543d19742cb5"},
+]
+
+[package.dependencies]
+attrs = ">=19.2.0"
+flake8 = ">=6.0.0"
+
+[package.extras]
+dev = ["coverage", "hypothesis", "hypothesmith (>=0.2)", "pre-commit", "pytest", "tox"]
+
+[[package]]
 name = "flask"
 version = "2.2.5"
 description = "A simple framework for building complex web applications."
@@ -3580,4 +3598,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.11"
-content-hash = "fb5c5b3c62dd2f53b9ad48e5858139ab3133d3c8f21efe42f13d4e9fc5f206c2"
+content-hash = "d2d3e8165cfa31af158b0767f4d61c27baa57c8a05196c8ba50b367b89ace672"
