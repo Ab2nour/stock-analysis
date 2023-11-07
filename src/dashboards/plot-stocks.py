@@ -45,7 +45,7 @@ app.layout = html.Div(
 @callback(
     Output("stock-candlestick-plot", "figure"), Input("dropdown-selection", "value")
 )
-def update_candlestick(value: str):
+def update_candlestick(value: str) -> None:
     """
     Update the candlestick plot.
 
@@ -92,7 +92,7 @@ def update_candlestick(value: str):
 
 
 @callback(Output("stock-line-plot", "figure"), Input("dropdown-selection", "value"))
-def update_line_plot(value: str):
+def update_line_plot(value: str) -> None:
     """
     Update the line plot.
 
