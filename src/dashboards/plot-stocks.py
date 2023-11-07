@@ -45,7 +45,7 @@ app.layout = html.Div(
 @callback(
     Output("stock-candlestick-plot", "figure"), Input("dropdown-selection", "value")
 )
-def update_candlestick(value: str):
+def update_candlestick(value: str) -> None:
     """
     Update the candlestick plot.
 
@@ -61,12 +61,13 @@ def update_candlestick(value: str):
 
     Example
     -------
-    To update the candlestick plot for a stock with the symbol 'AAPL', you can call the function like this:
+    To update the candlestick plot for a stock with the symbol 'AAPL',
+    you can call the function like this:
 
     >>> update_candlestick("AAPL")
     """
     df = stocks[value]
-    fig_title = f"Cours de l'action {value}"  # todo: plot title figure
+    # fig_title = f"Cours de l'action {value}"  # todo: plot title figure
 
     fig = go.Figure(
         data=[
@@ -92,7 +93,7 @@ def update_candlestick(value: str):
 
 
 @callback(Output("stock-line-plot", "figure"), Input("dropdown-selection", "value"))
-def update_line_plot(value: str):
+def update_line_plot(value: str) -> None:
     """
     Update the line plot.
 
@@ -108,7 +109,8 @@ def update_line_plot(value: str):
 
     Example
     -------
-    To update the line plot for a stock with the symbol 'AAPL', you can call the function like this:
+    To update the line plot for a stock with the symbol 'AAPL',
+    you can call the function like this:
 
     >>> update_line_plot("AAPL")
     """
