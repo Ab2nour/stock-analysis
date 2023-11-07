@@ -66,7 +66,7 @@ def update_candlestick(value: str) -> None:
     >>> update_candlestick("AAPL")
     """
     df = stocks[value]
-    fig_title = f"Cours de l'action {value}"  # todo: plot title figure
+    # fig_title = f"Cours de l'action {value}"  # todo: plot title figure
 
     fig = go.Figure(
         data=[
