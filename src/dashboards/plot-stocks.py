@@ -61,7 +61,8 @@ def update_candlestick(value: str) -> None:
 
     Example
     -------
-    To update the candlestick plot for a stock with the symbol 'AAPL', you can call the function like this:
+    To update the candlestick plot for a stock with the symbol 'AAPL',
+    you can call the function like this:
 
     >>> update_candlestick("AAPL")
     """
@@ -108,7 +109,8 @@ def update_line_plot(value: str) -> None:
 
     Example
     -------
-    To update the line plot for a stock with the symbol 'AAPL', you can call the function like this:
+    To update the line plot for a stock with the symbol 'AAPL',
+    you can call the function like this:
 
     >>> update_line_plot("AAPL")
     """
