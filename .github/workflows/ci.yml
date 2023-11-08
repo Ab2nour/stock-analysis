@@ -28,5 +28,8 @@ jobs:
       - name: Run flake8
         run: poetry run flake8 .
 
+      - name: Run nb-clean to check for unnecessary metadata and empty cells in notebooks
+        run: poetry run nb-clean check src --preserve-cell-outputs --remove-empty-cells
+
       - name: Run notebooks to see if they execute without errors
         run: find src -type f -name "*.ipynb" | xargs poetry run jupyter execute
