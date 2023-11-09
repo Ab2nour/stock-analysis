@@ -1,29 +1,19 @@
 import pandas as pd
 import os
 
-os.chdir("src")
-try:
-    from detrend import LinearReg, PolynomialRegression, LinearMA
-except ModuleNotFoundError as error:
-    print(error)
-    exit()
 
-### INSURE YOU ARE IN SOURCE DIRECTORY FOR OS MODULE
-
-os.chdir("..")
-print(os.getcwd())
 
 ### SPECIFY DETREND MODEL AND DIRECTORY IN WHICH SAVE PROCESSED DATA
 
 detrend_model = LinearMA(window=200)
 model_name: str = "LinearMA"
 model_options: str = "window-200"  # format: option1-value_option2-value
-processed_data_folder = f"data/detrend_data/{model_name}/{model_options}"
+processed_data_folder = f"data/processed_data/detrend_data/{model_name}/{model_options}"
 
 
 ### GATHER FILES TO PROCESS
 
-data_folder = "data"
+data_folder = "data/raw_data"
 filenames = [f for f in os.listdir(data_folder) if f.endswith(".csv")]
 
 ### READ FILES
