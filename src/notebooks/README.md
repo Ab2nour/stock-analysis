@@ -1,4 +1,4 @@
-# src folder
+# src/notebooks folder
 
 This folder contains all the source code of the project.
 
