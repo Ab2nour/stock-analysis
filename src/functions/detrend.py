@@ -51,11 +51,12 @@ class LinearReg:
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
-        """Plot two graphs: the original data and its fitted trend curve; the detrended data
+        """Plot two graphs: the original data
+        and its fitted trend curve; the detrended data
 
         Args:
-            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
-            financial data. Defaults to None.
+            xticklabels (pd.core.indexes.base.Index | None, optional):
+            the date index of the imported financial data. Defaults to None.
         """
         _fancy_plot(
             y_original=self.y_original,
@@ -131,11 +132,12 @@ class PolynomialRegression:
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
-        """Plot two graphs: the original data and its fitted trend curve; the detrended data
+        """Plot two graphs: the original data and its fitted trend curve;
+                            the detrended data
 
         Args:
-            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
-            financial data. Defaults to None.
+            xticklabels (pd.core.indexes.base.Index | None, optional):
+            the date index of the imported financial data. Defaults to None.
         """
         _fancy_plot(
             y_original=self.y_original,
@@ -179,11 +181,12 @@ class LinearMA:
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
-        """Plot two graphs: the original data and its fitted trend curve; the detrended data
+        """Plot two graphs: the original data and its fitted trend curve;
+                            the detrended data
 
         Args:
-            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
-            financial data. Defaults to None.
+            xticklabels (pd.core.indexes.base.Index | None, optional):
+            the date index of the imported financial data. Defaults to None.
         """
         _fancy_plot(
             y_original=self.y_original,
@@ -223,11 +226,12 @@ class ExponentialMA:
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
-        """Plot two graphs: the original data and its fitted trend curve; the detrended data
+        """Plot two graphs: the original data and its fitted trend curve;
+                            the detrended data
 
         Args:
-            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
-            financial data. Defaults to None.
+            xticklabels (pd.core.indexes.base.Index | None, optional):
+            the date index of the imported financial data. Defaults to None.
         """
         _fancy_plot(
             y_original=self.y_original,
@@ -284,11 +288,12 @@ class BSplines:
         return self.y_predict
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
-        """Plot two graphs: the original data and its fitted trend curve; the detrended data
+        """Plot two graphs: the original data and its fitted trend curve;
+                            the detrended data
 
         Args:
-            xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
-            financial data. Defaults to None.
+            xticklabels (pd.core.indexes.base.Index | None, optional):
+            the date index of the imported financial data. Defaults to None.
         """
         _fancy_plot(
             y_original=self.y_original,

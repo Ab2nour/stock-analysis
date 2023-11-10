@@ -4,22 +4,22 @@ import sys
 import pandas as pd
 
 sys.path.append("./src/functions")
-from detrend import LinearMA, LinearReg, PolynomialRegression
+from detrend import LinearMA  # noqa: E402
 
-### SPECIFY DETREND MODEL AND DIRECTORY IN WHICH SAVE PROCESSED DATA
+# SPECIFY DETREND MODEL AND DIRECTORY IN WHICH SAVE PROCESSED DATA
 
 detrend_model = LinearMA(window=200)
 model_name: str = "LinearMA"
-model_options: str = "window-200"  # format: option1-value_option2-value
+model_options: str = "window-201"  # format: option1-value_option2-value
 processed_data_folder = f"data/processed_data/detrend_data/{model_name}/{model_options}"
 
 
-### GATHER FILES TO PROCESS
+# GATHER FILES TO PROCESS
 
 data_folder = "data/raw_data"
 filenames = [f for f in os.listdir(data_folder) if f.endswith(".csv")]
 
-### READ FILES
+# READ FILES
 
 data_files: dict = {
     filename: pd.read_csv(
@@ -28,9 +28,9 @@ data_files: dict = {
     for filename in filenames
 }
 
-### DETREND FILES
+# DETREND FILES
 
-for stock_name, data in zip(data_files.keys(), data_files.values()):
+for data in data_files.values():
     # fit the model using the close price (arbitrary)
     close_price = data["Close"]
     detrend_model.fit(close_price)
@@ -43,7 +43,7 @@ for stock_name, data in zip(data_files.keys(), data_files.values()):
         # overwrite original time series
         data[data_type] = y_predict
 
-### WRITE PROCESSED FILES
+# WRITE PROCESSED FILES
 
 os.makedirs(processed_data_folder, exist_ok=True)  # Create folder if needed
 

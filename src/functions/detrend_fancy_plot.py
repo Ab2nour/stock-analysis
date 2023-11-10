@@ -14,8 +14,8 @@ def _fancy_plot(
     """Plot two graphs: the original data and its fitted trend curve; the detrended data
 
     Args:
-        xticklabels (pd.core.indexes.base.Index | None, optional): the date index of the imported
-        financial data. Defaults to None.
+        xticklabels (pd.core.indexes.base.Index | None, optional):
+        the date index of the imported financial data. Defaults to None.
     """
     _, axs = plt.subplots(2, 1, figsize=(20, 15), gridspec_kw={"hspace": 0.35})
     # main plot
@@ -26,7 +26,10 @@ def _fancy_plot(
             f"{key}: {value}" for key, value in fitted_parameters.items()
         )
         plt.suptitle(
-            f"Visual summary of detrending using {method_name} with\n{parameters_string}"
+            (
+                "Visual summary of detrending using"
+                f"{method_name} with\n{parameters_string}"
+            )
         )
 
     # first plot
