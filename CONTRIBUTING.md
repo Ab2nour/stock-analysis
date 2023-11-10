@@ -19,6 +19,8 @@ todo:
 
 ## git pre-commit hook
 
+Create a file in `.git/hooks/` named `pre-commit` (no extension) and copy this into it:
+
 ```bash
 #!/bin/bash
 
