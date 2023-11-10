@@ -1,9 +1,9 @@
-from sklearn.linear_model import LinearRegression
-from statsmodels.tsa.deterministic import DeterministicProcess
-from scipy import interpolate
 import numpy as np
 import pandas as pd
 from detrend_fancy_plot import _fancy_plot
+from scipy import interpolate
+from sklearn.linear_model import LinearRegression
+from statsmodels.tsa.deterministic import DeterministicProcess
 
 
 class LinearReg:

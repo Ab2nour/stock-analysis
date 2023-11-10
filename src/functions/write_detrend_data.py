@@ -1,10 +1,10 @@
-import pandas as pd
 import os
 import sys
 
-sys.path.append("./src/functions")
-from detrend import LinearReg, PolynomialRegression, LinearMA
+import pandas as pd
 
+sys.path.append("./src/functions")
+from detrend import LinearMA, LinearReg, PolynomialRegression
 
 ### SPECIFY DETREND MODEL AND DIRECTORY IN WHICH SAVE PROCESSED DATA
 
