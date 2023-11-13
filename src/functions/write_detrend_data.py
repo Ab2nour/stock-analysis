@@ -6,7 +6,7 @@ import pandas as pd
 sys.path.append("./src/functions")
 from detrend import LinearMA  # noqa: E402
 
-# SPECIFY DETREND MODEL AND DIRECTORY IN WHICH SAVE PROCESSED DATA
+# Specify detrend model and directory in which save processed data
 
 detrend_model = LinearMA(window=200)
 model_name: str = "LinearMA"
@@ -14,12 +14,12 @@ model_options: str = "window-201"  # format: option1-value_option2-value
 processed_data_folder = f"data/processed_data/detrend_data/{model_name}/{model_options}"
 
 
-# GATHER FILES TO PROCESS
+# Gather files to process
 
 data_folder = "data/raw_data"
 filenames = [f for f in os.listdir(data_folder) if f.endswith(".csv")]
 
-# READ FILES
+# Read files
 
 data_files: dict = {
     filename: pd.read_csv(
@@ -28,7 +28,7 @@ data_files: dict = {
     for filename in filenames
 }
 
-# DETREND FILES
+# Detrend files
 
 for data in data_files.values():
     # fit the model using the close price (arbitrary)
@@ -43,7 +43,7 @@ for data in data_files.values():
         # overwrite original time series
         data[data_type] = y_predict
 
-# WRITE PROCESSED FILES
+# Write processed files
 
 os.makedirs(processed_data_folder, exist_ok=True)  # Create folder if needed
 
