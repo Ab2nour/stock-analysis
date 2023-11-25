@@ -16,3 +16,39 @@ todo:
 - procédure pull requests
 - finir les types plus hauts + rajouter les scopes
 - apprendre à utiliser debugger
+
+## git pre-commit hook
+
+Create a file in `.git/hooks/` named `pre-commit` (no extension) and copy this into it:
+
+```bash
+#!/bin/bash
+
+# Récupérer les fichiers modifiés
+files=$(git diff --cached --name-only --diff-filter=ACM)
+
+# Vérifier si des fichiers sont modifiés
+if [ -n "$files" ]; then
+  # Exécuter black
+  poetry run black $files
+  poetry run isort $files
+  poetry run nbqa isort $files
+  echo $files
+
+  # Convertir la chaîne en un tableau
+  IFS=' ' read -r -a files_array <<< "$files"
+
+  # Itérer sur la liste des fichiers et exécuter la commande pour chaque fichier
+  for file in "${files_array[@]}"; do
+    poetry run nbdev_clean --fname "$file"
+  done
+
+  # Récupérer les fichiers modifiés après linting
+  modified_files=$(git diff --cached --name-only --diff-filter=ACM)
+
+  # Ajouter les fichiers modifiés après linting pour le commit
+  if [ -n "$modified_files" ]; then
+    git add $modified_files
+  fi
+fi
+```
