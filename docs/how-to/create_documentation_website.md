@@ -1,12 +1,10 @@
 # How to create documentation website
 
-Here is how I did it.
-
 # Initialization
 
 ## Install sphinx
 
-Add sphinx and Read The Docs (RTD) theme (better than default theme).
+Add sphinx and Read The Docs (RTD) theme (better than default theme) to dependencies.
 
 ```bash
 poetry add --group dev sphinx sphinx_rtd_theme
@@ -81,7 +79,7 @@ Use `sphinx-apidoc` to generate pages from docstring in `src` module, and genera
 poetry run sphinx-apidoc src -o docs/source
 ```
 
-## Finally create the website
+## Create the website
 
 Go to `📂 docs` folder.
 
@@ -97,6 +95,6 @@ Between two builds, run this to clean all output generated (useful if you remove
 make clean
 ```
 
-## See the website
+# See the website
 
 Open `docs/build/html/index.html` in your browser and voilà!

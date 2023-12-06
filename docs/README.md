@@ -9,10 +9,10 @@ Documentation of the project.
 [`📂 build`](build)
 > Sphinx-generated files, notably the documentation website in html.
 
-[`📂 demo_notebooks`](demo_notebooks)
+[`📂 demo-notebooks`](demo-notebooks)
 > Example notebooks for demonstration/tutorial purposes.
 
-[`📂 how_to`](how_to)
+[`📂 how-to`](how-to)
 > Tutorials for code quality & creating docs (not related to this project particularly).
 
 [`📂 source`](source)
