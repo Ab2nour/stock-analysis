@@ -21,14 +21,14 @@ Sphinx provides a "quickstart" script to init the docs' website.
 
 ## Folder organization
 
-Now you have two subfolders in `docs`:
+Now you have two subfolders in `📂 docs`:
 
 1) `📂 build` will contain html generated files.
 2) `📂 source` which contains:
     - `conf.py`: configuration file for the website
     - `index.rst`: the "home" page of the website, in the `rst` language (similar to Markdown, but different)
 
-In the `docs` folder you have `Makefile` and `make.bat` (for Windows), two files for defining commands.
+In the `📂 docs` folder you have `Makefile` and `make.bat` (for Windows), two files for defining commands.
 
 # Configuration
 
@@ -69,9 +69,22 @@ sys.path.append(f"{root_folder}/src")
 
 # Build the website
 
+## Add the modules pages to the index
+
+This must be done only once. You must add the `modules` pages to the index: the goal is for your generated files to appear on the website.
+
+Edit `index.rst` and add one line containing `modules.rst` (be careful to respect indentation):
+```rst
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   modules.rst
+```
+
 ## Generate pages from docstring
 
-Go to the root folder.
+Go to the 📂 root folder .
 
 Use `sphinx-apidoc` to generate pages from docstring in `src` module, and generate the pages in `📂 docs/source`:
 
