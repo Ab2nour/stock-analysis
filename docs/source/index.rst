@@ -11,6 +11,10 @@ Welcome to Stock Analysis's documentation!
    :caption: Contents:
 
    modules.rst
+   demo-notebooks/detrend_class.ipynb
+   demo-notebooks/candlestick_chart_detrend_data.ipynb
+   how-to/create-documentation-website.md
+   how-to/code-quality.md
 
 
 Indices and tables
