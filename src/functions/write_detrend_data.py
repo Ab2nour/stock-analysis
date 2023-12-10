@@ -6,7 +6,6 @@ from src.functions.detrend import LinearMA
 
 if __name__ == "__main__":
     # Specify detrend model and directory in which save processed data
-
     detrend_model = LinearMA(window=200)
     model_name: str = "LinearMA"
     model_options: str = "window-201"  # format: option1-value_option2-value
@@ -15,12 +14,10 @@ if __name__ == "__main__":
     )
 
     # Gather files to process
-
     data_folder = "data/raw_data"
     filenames = [f for f in os.listdir(data_folder) if f.endswith(".csv")]
 
     # Read files
-
     data_files: dict = {
         filename: pd.read_csv(
             f"{data_folder}/{filename}", parse_dates=["Date"], index_col="Date"
@@ -29,7 +26,6 @@ if __name__ == "__main__":
     }
 
     # Detrend files
-
     for data in data_files.values():
         # fit the model using the close price (arbitrary)
         close_price = data["Close"]
@@ -46,7 +42,6 @@ if __name__ == "__main__":
             data[data_type] = y_predict
 
     # Write processed files
-
     os.makedirs(processed_data_folder, exist_ok=True)  # Create folder if needed
 
     for stock_name, detrend_data in zip(data_files.keys(), data_files.values()):
