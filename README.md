@@ -31,6 +31,9 @@ Voici l'organisation des différents dossiers du projet :
 [`📂 data`](data)
 > Contient les données d'actions au format csv.
 
+[`📂 docs`](docs)
+> Contient la documentation du projet.
+
 [`📂 img`](img)
 > Contient les images utilisées dans la documentation.
 
