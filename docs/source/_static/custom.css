@@ -35,32 +35,59 @@ h6 {
 }
 
 .sig {
-  font-family: JetBrains Mono, var(--pst-font-family-monospace);
-  letter-spacing: -1px;
+    font-family: JetBrains Mono, var(--pst-font-family-monospace);
+    letter-spacing: -1px;
     border-bottom: 1px solid var(--pst-color-border);
     margin-bottom: 12px;
 }
 
 .field-odd p strong {
-  font-family: JetBrains Mono;
+    font-family: JetBrains Mono;
+    font-size: 0.9em;
 }
 
 .field-odd p em {
-  font-style: normal;
-  font-family: JetBrains Mono;
-  font-size: 0.9em;
-  color: var(--pst-color-text-muted);
+    font-style: normal;
+    font-family: JetBrains Mono;
+    font-size: 0.85em;
+    color: var(--pst-color-text-muted);
 }
 
-dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) dd > dl.simple > dt {
-  font-family: Fira Sans Condensed;
+dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) dt.field-even,
+dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) dt.field-odd {
+    font-family: Fira Sans Condensed;
+}
+
+/* Function & class methods signature */
+.sig-name {
+    font-size: 1em;
+}
+
+.sig-param {
+    font-size: 0.9em;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0;
+}
+
+.sig-return-typehint {
+    font-size: 0.9em;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0;
+}
+
+.sig-paren {
+    font-weight: normal;
+    font-size: 1em;
 }
 
 /* Jupyter Notebook cells */
-div.cell div.cell_input, div.cell details.above-input > summary {
-  border: none;
-  border-left: 2px solid var(--pst-color-border);
-  border-radius: 0;
+div.cell div.cell_input,
+div.cell details.above-input>summary {
+    border: none;
+    border-left: 2px solid var(--pst-color-border);
+    border-radius: 0;
 }
 
 /* Code line numbers */
@@ -70,11 +97,18 @@ span.linenos {
     border-right: 1px solid var(--pst-color-border);
 }
 
-div.highlight, div.literal-block-wrapper, div[class*="highlight-"] {
-  border-radius: 0;
+div.highlight,
+div.literal-block-wrapper,
+div[class*="highlight-"] {
+    border-radius: 0;
 }
 
 /* Miscellaneous */
+.viewcode-link {
+  font-size: 0.85em;
+  font-weight: normal;
+}
+
 .prev-next-area a {
     border: 1px solid var(--pst-color-border);
     border-radius: 7px;
@@ -91,10 +125,10 @@ div.highlight, div.literal-block-wrapper, div[class*="highlight-"] {
     text-align: left;
 }
 
-.toctree-wrapper li[class^="toctree-l"] > a {
-  font-size: 1em;
+.toctree-wrapper li[class^="toctree-l"]>a {
+    font-size: 1em;
 }
 
-.toctree-wrapper .toctree-l1 > a {
-  font-weight: bold;
+.toctree-wrapper .toctree-l1>a {
+    font-weight: bold;
 }
