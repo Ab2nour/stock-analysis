@@ -58,7 +58,19 @@ dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.
     font-family: Fira Sans Condensed;
 }
 
+/* Function & class methods signature */
+.sig-name {
+    font-size: 1em;
+}
+
 .sig-param {
+    font-size: 0.9em;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0;
+}
+
+.sig-return-typehint {
     font-size: 0.9em;
     font-weight: 400;
     font-style: normal;
@@ -92,6 +104,11 @@ div[class*="highlight-"] {
 }
 
 /* Miscellaneous */
+.viewcode-link {
+  font-size: 0.85em;
+  font-weight: normal;
+}
+
 .prev-next-area a {
     border: 1px solid var(--pst-color-border);
     border-radius: 7px;
