@@ -35,6 +35,9 @@ extensions = [
 templates_path = ["_templates"]
 exclude_patterns = []
 
+# Autodoc options
+autodoc_default_options = {"private-members": True}
+
 # MyST NB options
 nb_number_source_lines = True
 os.environ["PYTHONPATH"] = root_folder  # MyST NB must have root folder in PYTHONPATH
