@@ -43,12 +43,13 @@ h6 {
 
 .field-odd p strong {
     font-family: JetBrains Mono;
+    font-size: 0.9em;
 }
 
 .field-odd p em {
     font-style: normal;
     font-family: JetBrains Mono;
-    font-size: 0.9em;
+    font-size: 0.85em;
     color: var(--pst-color-text-muted);
 }
 
