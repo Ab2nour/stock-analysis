@@ -15,7 +15,7 @@ def _fancy_plot(
 
     Args:
         xticklabels (pd.core.indexes.base.Index | None, optional):
-        the date index of the imported financial data. Defaults to None.
+            the date index of the imported financial data. Defaults to None.
     """
     _, axs = plt.subplots(2, 1, figsize=(20, 15), gridspec_kw={"hspace": 0.35})
     # main plot
