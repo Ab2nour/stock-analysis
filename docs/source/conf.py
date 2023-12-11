@@ -44,3 +44,4 @@ os.environ["PYTHONPATH"] = root_folder  # MyST NB must have root folder in PYTHO
 
 html_theme = "sphinx_book_theme"
 html_static_path = ["_static"]
+html_css_files = ["custom.css"]
