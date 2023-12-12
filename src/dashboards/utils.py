@@ -24,6 +24,7 @@ def plt_dash() -> str:
     """Helper function to plot Matplotlib graphs in Dash dashboards.
 
     Example
+    -------
     >>> plt.scatter([1, 2, 3], [2, 4, 6])  # your plot
     >>> plt.title("Title of the plot")  # you can add anything on it
     >>> data = plt_dash()

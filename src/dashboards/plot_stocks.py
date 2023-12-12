@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from dash import Dash, Input, Output, callback, dcc, html
+from plotly.graph_objs import Figure
 
 data_folder = "data"
 
@@ -13,39 +14,13 @@ stocks_names = (
 )
 
 stocks = {}
-
-for stock_name in stocks_names:
-    stocks[stock_name] = pd.read_csv(
-        f"{data_folder}/{stock_name}.csv", parse_dates=["Date"], index_col="Date"
-    )
-
 title = "Dashboard séries chronologiques"
-
-app = Dash(__name__)
-app.title = "Séries chronologiques"
-
-app.layout = html.Div(
-    [
-        html.H1(children=title, style={"textAlign": "center"}),
-        dcc.Dropdown(stocks_names, stocks_names[0], id="dropdown-selection"),
-        html.Div(
-            children=[
-                dcc.Graph(
-                    id="stock-candlestick-plot", style={"display": "inline-block"}
-                ),
-                dcc.Graph(id="stock-line-plot", style={"display": "inline-block"}),
-            ]
-        ),
-        # dcc.Graph(id='stock-candlestick-plot'),
-        # dcc.Graph(id='stock-line-plot')
-    ]
-)
 
 
 @callback(
     Output("stock-candlestick-plot", "figure"), Input("dropdown-selection", "value")
 )
-def update_candlestick(value: str) -> None:
+def update_candlestick(value: str) -> Figure:
     """
     Update the candlestick plot.
 
@@ -93,7 +68,7 @@ def update_candlestick(value: str) -> None:
 
 
 @callback(Output("stock-line-plot", "figure"), Input("dropdown-selection", "value"))
-def update_line_plot(value: str) -> None:
+def update_line_plot(value: str) -> Figure:
     """
     Update the line plot.
 
@@ -158,4 +133,29 @@ def update_line_plot(value: str) -> None:
 
 
 if __name__ == "__main__":
+    for stock_name in stocks_names:
+        stocks[stock_name] = pd.read_csv(
+            f"{data_folder}/{stock_name}.csv", parse_dates=["Date"], index_col="Date"
+        )
+
+    app = Dash(__name__)
+    app.title = "Séries chronologiques"
+
+    app.layout = html.Div(
+        [
+            html.H1(children=title, style={"textAlign": "center"}),
+            dcc.Dropdown(stocks_names, stocks_names[0], id="dropdown-selection"),
+            html.Div(
+                children=[
+                    dcc.Graph(
+                        id="stock-candlestick-plot", style={"display": "inline-block"}
+                    ),
+                    dcc.Graph(id="stock-line-plot", style={"display": "inline-block"}),
+                ]
+            ),
+            # dcc.Graph(id='stock-candlestick-plot'),
+            # dcc.Graph(id='stock-line-plot')
+        ]
+    )
+
     app.run(debug=True)

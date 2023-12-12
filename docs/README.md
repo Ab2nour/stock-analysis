@@ -1,3 +1,13 @@
 # docs folder
 
-This folder contains useful documentation to understand the objective or techniques used in the project.
+## Description
+
+Documentation of the project.
+
+## Folder organization
+
+[`📂 build`](build)
+> Sphinx-generated files, notably the documentation website in html.
+
+[`📂 source`](source)
+> Documentation source files, used to build docs website with Sphinx (like `rst` and config files).

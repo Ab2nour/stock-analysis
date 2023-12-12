@@ -28,11 +28,14 @@ Nos séries temporelles s'étalent (pour la majorité) du début des années 200
 
 Voici l'organisation des différents dossiers du projet :
 
-[`📂 data`](https://github.com/Ab2nour/stock-analysis/tree/main/data)
+[`📂 data`](data)
 > Contient les données d'actions au format csv.
 
-[`📂 img`](https://github.com/Ab2nour/stock-analysis/tree/main/img)
+[`📂 docs`](docs)
+> Contient la documentation du projet.
+
+[`📂 img`](img)
 > Contient les images utilisées dans la documentation.
 
-[`📂 src`](https://github.com/Ab2nour/stock-analysis/tree/main/src)
+[`📂 src`](src)
 > Contient le code source du projet.
