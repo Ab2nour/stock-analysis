@@ -253,16 +253,18 @@ class BSplines:
         self.degree = degree
         self.method_name = "B-splines"
 
-    def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
-        """
-        Returns fitted values with the B-splines method
+    def fit(self, y: np.ndarray | pd.DataFrame):
+        """Fit BSplines to price series
+
+        Args:
+            y (np.ndarray | pd.DataFrame): Price series
         """
         # Define time index starting from 0
         time_index = np.arange(len(y))
         # Define knots and corresponding price
         knots = np.arange(0, len(y), self.interval_length)
         price_series = np.array(y)
-        knots_price = y[knots]
+        knots_price = price_series[knots]
 
         # Define t, c, k parameters of scipy interpolate function
         t, c, k = interpolate.splrep(x=knots, y=knots_price, k=self.degree)
@@ -275,13 +277,13 @@ class BSplines:
         self.fitted_values = np.array(y_interpolate).ravel()
 
     def predict(self, y: np.ndarray) -> np.ndarray:
-        """_summary_
+        """Predict detrended values for given price series
 
         Args:
-            y (np.ndarray): 1 dimensional array of same length as y_original
+            y (np.ndarray): Price series
 
         Returns:
-            np.ndarray: detrended values, 1 dimensional array of length len(y)
+            np.ndarray: Predicted detrended series
         """
         self.y_predict = y - self.fitted_values
         return self.y_predict
