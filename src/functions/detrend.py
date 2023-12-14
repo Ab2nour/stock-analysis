@@ -254,7 +254,7 @@ class BSplines:
         self.degree = degree
         self.method_name = "B-splines"
 
-    def fit(self, y: np.ndarray | pd.DataFrame):
+    def fit(self, y: np.ndarray | pd.DataFrame) -> None:
         """Fit BSplines to price series
 
         Args:
