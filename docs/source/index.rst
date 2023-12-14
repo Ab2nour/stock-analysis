@@ -15,6 +15,13 @@ Welcome to Stock Analysis's documentation!
 
 .. toctree::
    :maxdepth: 2
+   :caption: 📒 Notebooks
+
+   notebooks/decomposition.ipynb
+   notebooks/exploratory-data-analysis.ipynb
+
+.. toctree::
+   :maxdepth: 2
    :caption: 📝 How-to guides
 
    how-to/create-documentation-website.md
