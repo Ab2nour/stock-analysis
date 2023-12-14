@@ -10,7 +10,8 @@ if __name__ == "__main__":
     # Specify detrend model and directory in which save processed data
     detrend_model = LinearMADetrend(window=200)
     model_name: str = "LinearMADetrend"
-    model_options: str = "window-100"  # format: option1-value_option2-value
+    model_options: str = "window-200"  # format: option1-value_option2-value
+    # todo: model options should be deduced automatically from REAL options
     processed_data_folder = (
         f"data/processed_data/detrend_data/{model_name}/{model_options}"
     )
