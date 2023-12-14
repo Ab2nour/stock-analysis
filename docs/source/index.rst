@@ -1,8 +1,3 @@
-.. Stock Analysis documentation master file, created by
-   sphinx-quickstart on Wed Dec  6 21:54:35 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to Stock Analysis's documentation!
 ==========================================
 
@@ -12,6 +7,14 @@ Welcome to Stock Analysis's documentation!
 
    demo-notebooks/detrend_class.ipynb
    demo-notebooks/candlestick_chart_detrend_data.ipynb
+   demo-notebooks/download-data.ipynb
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 📒 Notebooks
+
+   notebooks/decomposition.ipynb
+   notebooks/exploratory-data-analysis.ipynb
 
 .. toctree::
    :maxdepth: 2
