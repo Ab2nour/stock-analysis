@@ -34,4 +34,4 @@ jobs:
         run: poetry run nb-clean check . --preserve-cell-outputs --remove-empty-cells
 
       - name: Run notebooks to see if they execute without errors
-        run: find src -type f -name "*.ipynb" | xargs poetry run jupyter execute
+        run: poetry run poe nbrun
