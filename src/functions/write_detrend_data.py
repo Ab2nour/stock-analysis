@@ -2,13 +2,15 @@ import os
 
 import pandas as pd
 
-from src.functions.detrend import LinearMA
+from src.functions.detrend import LinearMADetrend
+from src.utils import go_to_root_folder
 
 if __name__ == "__main__":
+    go_to_root_folder()
     # Specify detrend model and directory in which save processed data
-    detrend_model = LinearMA(window=200)
-    model_name: str = "LinearMA"
-    model_options: str = "window-201"  # format: option1-value_option2-value
+    detrend_model = LinearMADetrend(window=200)
+    model_name: str = "LinearMADetrend"
+    model_options: str = "window-100"  # format: option1-value_option2-value
     processed_data_folder = (
         f"data/processed_data/detrend_data/{model_name}/{model_options}"
     )

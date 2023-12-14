@@ -7,7 +7,7 @@ from statsmodels.tsa.deterministic import DeterministicProcess
 from src.functions.detrend_fancy_plot import _fancy_plot
 
 
-class LinearReg:
+class LinearRegressionDetrend:
     def __init__(self) -> None:
         self.fitted_parameters = None  # for further implementation
         self.method_name = "linear regression"
@@ -69,7 +69,7 @@ class LinearReg:
         )
 
 
-class PolynomialRegression:
+class PolynomialRegressionDetrend:
     def __init__(self, order: int = 3, n_segments: int = 5) -> None:
         self.fitted_parameters = {
             "Polynomial order": order,
@@ -150,7 +150,7 @@ class PolynomialRegression:
         )
 
 
-class LinearMA:
+class LinearMADetrend:
     def __init__(self, window: int = 100) -> None:
         self.fitted_parameters = {"Time span": window}
         self.window = window
@@ -199,7 +199,7 @@ class LinearMA:
         )
 
 
-class ExponentialMA:
+class ExponentialMADetrend:
     def __init__(self, alpha: float = 0.05) -> None:
         self.fitted_parameters = {"Alpha": alpha}
         self.alpha = alpha
@@ -244,7 +244,7 @@ class ExponentialMA:
         )
 
 
-class BSplines:
+class BSplinesDetrend:
     def __init__(self, smoothing_factor: int = 10, degree: int = 3) -> None:
         self.fitted_parameters = {
             "Smoothing factor": smoothing_factor,
