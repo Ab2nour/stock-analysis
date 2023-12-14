@@ -7,6 +7,7 @@ Welcome to Stock Analysis's documentation!
 
    demo-notebooks/detrend_class.ipynb
    demo-notebooks/candlestick_chart_detrend_data.ipynb
+   demo-notebooks/download-data.ipynb
 
 .. toctree::
    :maxdepth: 2
