@@ -1,3 +1,4 @@
+"""Detrend models."""
 import numpy as np
 import pandas as pd
 from scipy import interpolate
@@ -8,6 +9,8 @@ from src.functions.detrend_fancy_plot import _fancy_plot
 
 
 class BaseDetrend:
+    """Base class for all detrend models."""
+
     def __init__(self, method_name: str) -> None:
         self.y_predict: np.ndarray = np.array([])
         self.y_original: np.ndarray = np.array([])
