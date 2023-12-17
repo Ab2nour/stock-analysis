@@ -29,8 +29,9 @@ class BaseDetrend:
 
     def fancy_plot(self, xticklabels: pd.core.indexes.base.Index | None = None) -> None:
         """Plot two graphs:
-        1) the original data and its fitted trend curve;
-        2) the detrended data
+
+        1. the original data and its fitted trend curve;
+        2. the detrended data
 
         Args:
             xticklabels (pd.core.indexes.base.Index | None, optional):
