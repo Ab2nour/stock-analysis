@@ -27,7 +27,7 @@ Welcome to Stock Analysis's documentation!
    :maxdepth: 2
    :caption: 📖 Reference
 
-   docstring∕modules.rst
+   docstring/modules.rst
 
 
 Indices and tables
