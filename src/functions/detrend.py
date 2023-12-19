@@ -171,33 +171,34 @@ class ExponentialMADetrend(BaseDetrend):
 
 
 class BSplinesDetrend(BaseDetrend):
-    def __init__(self, smoothing_factor: int = 10, degree: int = 3) -> None:
+    def __init__(self, interval_length: int = 10, degree: int = 3) -> None:
         super().__init__("B-splines")
         self.fitted_parameters = {
-            "Smoothing factor": smoothing_factor,
+            "Interval length": interval_length,
             "Degree": degree,
         }
-        self.smoothing_factor = smoothing_factor
+        self.interval_length = interval_length
         self.degree = degree
 
-    def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
-        """
-        Returns fitted values with the B-splines method
-        """
-        # Define x and y
-        time_dummy = np.arange(len(y))
-        price = np.array(y)
+    def fit(self, y: np.ndarray | pd.DataFrame) -> None:
+        """Fit BSplines to price series
 
-        # Define t the vector of knots,
-        # c the B-splines coefficients
-        # and k the degree of the splines
-        t, c, k = interpolate.splrep(
-            x=time_dummy, y=price, s=self.smoothing_factor, k=self.degree
-        )
+        Args:
+            y (np.ndarray | pd.DataFrame): Price series
+        """
+        # Define time index starting from 0
+        time_index = np.arange(len(y))
+        # Define knots and corresponding price
+        knots = np.arange(0, len(y), self.interval_length)
+        price_series = np.array(y)
+        knots_price = price_series[knots]
+
+        # Define t, c, k parameters of scipy interpolate function
+        t, c, k = interpolate.splrep(x=knots, y=knots_price, k=self.degree)
 
         # Interpolate the prices
-        spline = interpolate.BSpline(t, c, k, extrapolate=False)
-        y_interpolate = spline(time_dummy)
+        spline = interpolate.BSpline(t, c, k)
+        y_interpolate = spline(time_index)
 
         self.y_original = y
         self.fitted_values = np.array(y_interpolate).ravel()
