@@ -3,7 +3,7 @@ Analyse de cours boursiers dans le cadre du cours de Séries temporelles.
 
 |                               |                        |
 |:-----------------------------:|:----------------------:|
-| ![](img/aapl-candlestick.png) | ![](img/aapl-pacf.png) |
+| ![](assets/img/aapl-candlestick.png) | ![](assets/img/aapl-pacf.png) |
 
 Etude de plusieurs actions issues du CAC40, S&P 500, crypto-monnaies (à décider...)
 
@@ -28,14 +28,14 @@ Nos séries temporelles s'étalent (pour la majorité) du début des années 200
 
 Voici l'organisation des différents dossiers du projet :
 
+[`📂 assets`](assets)
+> Contient des ressources liées au projet, telles que des images.
+
 [`📂 data`](data)
 > Contient les données d'actions au format csv.
 
 [`📂 docs`](docs)
 > Contient la documentation du projet.
-
-[`📂 img`](img)
-> Contient les images utilisées dans la documentation.
 
 [`📂 src`](src)
 > Contient le code source du projet.

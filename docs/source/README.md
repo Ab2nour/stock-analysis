@@ -6,8 +6,11 @@ Documentation file sources of the project.
 
 ## Folder organization
 
-[`📂 demo-notebooks`](source/demo-notebooks)
+[`📂 demo-notebooks`](demo-notebooks)
 > Example notebooks for demonstration/tutorial purposes.
 
-[`📂 how-to`](source/how-to)
+[`📂 docstring`](docstring)
+> Files for automatic docstring-generated pages.
+
+[`📂 how-to`](how-to)
 > Tutorials for code quality & creating docs (not related to this project particularly).

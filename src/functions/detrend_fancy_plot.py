@@ -35,7 +35,7 @@ def _fancy_plot(
     # first plot
     axs[0].plot(np.arange(len(y_original)), y_original, label="Original price")
     axs[0].plot(np.arange(len(y_original)), y_fitted, label="Trend")
-    axs[0].set_title("Orignal time series with fitted trend curve")
+    axs[0].set_title("Original time series with fitted trend curve")
     axs[0].set_xlabel("Date")
     axs[0].set_ylabel("Price")
     axs[0].legend()
