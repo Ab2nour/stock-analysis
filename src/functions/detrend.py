@@ -171,7 +171,7 @@ class ExponentialMADetrend(BaseDetrend):
 
 
 class BSplinesDetrend(BaseDetrend):
-    def __init__(self, smoothing_factor: int = 10, degree: int = 3) -> None:
+    def __init__(self, interval_length: int = 10, degree: int = 3) -> None:
         super().__init__("B-splines")
         self.fitted_parameters = {
             "Interval length": interval_length,
