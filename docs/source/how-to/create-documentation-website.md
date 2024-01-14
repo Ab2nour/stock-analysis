@@ -111,3 +111,10 @@ make clean
 ## See the website
 
 Open `docs/build/html/index.html` in your browser and voilà!
+
+
+## Use Markdown instead of reStructured Text
+
+```bash
+poetry add --group dev myst-parser myst-nb
+```
