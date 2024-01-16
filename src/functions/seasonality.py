@@ -76,3 +76,68 @@ class SeasonalPlotter:
                 va="center",
             )
         return ax
+
+    # Function got from
+    # https://github.com/Kaggle/learntools/blob/master/learntools/time_series/utils.py
+    def plot_periodogram(
+        time_series: pd.Series,
+        detrend: str | bool = False,
+        ax: matplotlib.axes._axes.Axes = None,
+    ) -> matplotlib.axes._axes.Axes:
+        """Plot periodogram for time series data.
+
+        Args:
+            time_series (pd.Series): Times series data.
+            detrend (str | bool, optional): Specify detrend method if desired, False otherwise.
+            Defaults to False.
+            ax (matplotlib.axes._axes.Axes, optional): Matplotlib axe. Defaults to None.
+
+        Returns:
+            matplotlib.axes._axes.Axes: Matplotlib axe of plotted periodogram
+
+        Examples
+        --------
+        >>> plot_periodogram(time_series=df_detrend["Close"], detrend=False)
+        """
+        from scipy.signal import periodogram
+
+        fs = pd.Timedelta("365D") / pd.Timedelta("1D")
+
+        freqencies, spectrum = periodogram(
+            time_series,
+            fs=fs,
+            detrend=detrend,
+            window="boxcar",
+            scaling="spectrum",
+        )
+
+        if ax is None:
+            _, ax = plt.subplots(figsize=(16, 8))
+
+        ax.step(freqencies, spectrum, color="purple")
+
+        ax.set_xscale("log")
+
+        ax.set_xticks([1, 2, 4, 6, 12, 26, 52, 104])
+
+        ax.set_xticklabels(
+            [
+                "Annual (1)",
+                "Semiannual (2)",
+                "Quarterly (4)",
+                "Bimonthly (6)",
+                "Monthly (12)",
+                "Biweekly (26)",
+                "Weekly (52)",
+                "Semiweekly (104)",
+            ],
+            rotation=30,
+        )
+
+        ax.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
+
+        ax.set_ylabel("Variance")
+
+        ax.set_title("Periodogram")
+
+        return ax
