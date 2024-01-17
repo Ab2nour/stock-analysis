@@ -20,7 +20,8 @@ class SeasonalPlotter:
         """Plot resampled data based on frequency and broken down by periods.
 
         Args:
-            X (pd.DataFrame): Dataframe containing freq and period indexes and variable to plot y.
+            X (pd.DataFrame): Dataframe containing freq and period
+            indexes and variable to plot y.
             y (str): Column name of variable to plot.
             period (str): Period index.
             freq (str): Freq index.
@@ -43,7 +44,11 @@ class SeasonalPlotter:
 
         >>> _, ax = plt.subplots(figsize=(12, 6))
         >>> seasonal_plot(
-        >>>    X=df_detrend_seasonality, y="Close", period="year", freq="dayofyear", ax=ax
+        >>>    X=df_detrend_seasonality,
+        >>>    y="Close",
+        >>>    period="year",
+        >>>    freq="dayofyear",
+        >>>    ax=ax
         >>> )
         """
         if ax is None:
@@ -88,7 +93,8 @@ class SeasonalPlotter:
 
         Args:
             time_series (pd.Series): Times series data.
-            detrend (str | bool, optional): Specify detrend method if desired, False otherwise.
+            detrend (str | bool, optional): Specify detrend method
+            if desired, False otherwise.
             Defaults to False.
             ax (matplotlib.axes._axes.Axes, optional): Matplotlib axe. Defaults to None.
 
