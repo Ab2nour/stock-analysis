@@ -150,9 +150,12 @@ class SeasonalPlotter:
         return ax
 
 
-def check_stationarity_and_difference(ts, max_diff=5, significance_level=0.05):
+def check_stationarity_and_difference(
+    ts: pd.Series, max_diff: int = 5, significance_level: float = 0.05
+) -> tuple:
     """
-    Iteratively applies differencing and checks stationarity until the series becomes stationary.
+    Iteratively applies differencing and checks stationarity
+    until the series becomes stationary.
 
     Parameters:
     - ts: Time series data (pandas Series).
@@ -160,7 +163,8 @@ def check_stationarity_and_difference(ts, max_diff=5, significance_level=0.05):
     - significance_level: Significance level for the stationarity test.
 
     Returns:
-    - Differenced series, number of differencing steps, and p-value of the stationarity test.
+    - Differenced series, number of differencing steps,
+    and p-value of the stationarity test.
     """
 
     # Initializations
