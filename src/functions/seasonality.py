@@ -2,6 +2,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+from statsmodels.tsa.stattools import adfuller
 
 
 class SeasonalPlotter:
@@ -147,3 +148,45 @@ class SeasonalPlotter:
         ax.set_title("Periodogram")
 
         return ax
+
+
+def check_stationarity_and_difference(
+    ts: pd.Series, max_diff: int = 5, significance_level: float = 0.05
+) -> tuple:
+    """
+    Iteratively applies differencing and checks stationarity
+    until the series becomes stationary.
+
+    Parameters:
+    - ts: Time series data (pandas Series).
+    - max_diff: Maximum number of differencing steps to attempt.
+    - significance_level: Significance level for the stationarity test.
+
+    Returns:
+    - Differenced series, number of differencing steps,
+    and p-value of the stationarity test.
+    """
+
+    # Initializations
+    diff_count = 0
+    p_value = (
+        significance_level + 1
+    )  # Set initial p-value higher than the significance level
+
+    while p_value > significance_level and diff_count < max_diff:
+        # Apply differencing
+        ts_diff = ts.diff().dropna()
+
+        # Perform stationarity test (Augmented Dickey-Fuller)
+        _, p_value, _, _, _, _ = adfuller(ts_diff)
+
+        # Update for the next iteration
+        ts = ts_diff
+        diff_count += 1
+
+        # Print p-value
+        print(
+            f"pvalue for adfuller test on differencing order {diff_count} is {p_value}"
+        )
+
+    return ts_diff, diff_count, p_value
