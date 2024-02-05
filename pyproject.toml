@@ -18,6 +18,7 @@ jupyter = "^1.0.0"
 mplfinance = "^0.12.10b0"
 dash = "^2.14.0"
 prophet = "^1.1.5"
+xgboost = "^2.0.3"
 
 
 [tool.poetry.group.dev.dependencies]
