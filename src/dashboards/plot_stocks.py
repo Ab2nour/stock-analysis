@@ -39,7 +39,7 @@ def update_candlestick(value: str) -> Figure:
     To update the candlestick plot for a stock with the symbol 'AAPL',
     you can call the function like this:
 
-    >>> update_candlestick("AAPL")
+    >>> fig = update_candlestick("AAPL")
     """
     df = stocks[value]
     # fig_title = f"Cours de l'action {value}"  # todo: plot title figure
@@ -87,7 +87,7 @@ def update_line_plot(value: str) -> Figure:
     To update the line plot for a stock with the symbol 'AAPL',
     you can call the function like this:
 
-    >>> update_line_plot("AAPL")
+    >>> fig = update_line_plot("AAPL")
     """
     df = stocks[value]
     fig = px.line(df, y=["Open", "High", "Low", "Close"])
