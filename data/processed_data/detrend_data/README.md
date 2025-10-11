@@ -7,4 +7,4 @@ Volumes are not changed.
 
 Please respect the following convention to store data in this folder:
 
-    detrend_data/MethodName/parameter1-value1_parameter2-value2
+    dtrend_data/MethodName/parameter1-value1_parameter2-value2
