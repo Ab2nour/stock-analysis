@@ -3,7 +3,7 @@ import os
 import pandas as pd
 
 from src.functions.detrend import LinearMADetrend
-from src.utils import go_to_root_folder
+from src.utils.misc import go_to_root_folder
 
 if __name__ == "__main__":
     go_to_root_folder()
