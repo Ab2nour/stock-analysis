@@ -9,7 +9,5 @@ def load_sample_data() -> pd.DataFrame:
 
     >>> sample_data = load_sample_data()
     """
-    sample_data = pd.read_parquet(
-        f"{data_folder}/raw/sample-uniform-distribution.parquet", engine="pyarrow"
-    )
+    sample_data = pd.read_csv(f"{data_folder}/raw/AAPL.csv")
     return sample_data
