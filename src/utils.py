@@ -1,4 +1,5 @@
 """Utils for the project."""
+
 import os
 from pathlib import Path
 
@@ -7,8 +8,7 @@ import seaborn as sns
 
 
 def get_project_root() -> Path:
-    """
-    Returns the project root, useful for getting absolute paths in other files.
+    """Returns the project root, useful for getting absolute paths in other files.
 
     Returns
     -------
@@ -20,8 +20,7 @@ def get_project_root() -> Path:
 
 
 def go_to_root_folder() -> None:
-    """
-    Goes to the root folder, useful for accessing data folder simply in notebooks.
+    """Goes to the root folder, useful for accessing data folder simply in notebooks.
 
     Returns
     -------

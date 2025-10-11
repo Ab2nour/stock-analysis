@@ -1,8 +1,8 @@
 # Stock Analysis
 Analyse de cours boursiers dans le cadre du cours de Séries temporelles.
 
-|                               |                        |
-|:-----------------------------:|:----------------------:|
+|                                      |                               |
+|:------------------------------------:|:-----------------------------:|
 | ![](assets/img/aapl-candlestick.png) | ![](assets/img/aapl-pacf.png) |
 
 Etude de plusieurs actions issues du CAC40, S&P 500, crypto-monnaies (à décider...)

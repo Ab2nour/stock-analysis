@@ -1,4 +1,5 @@
 """Dashboard to plot a stock of your choice, showing its candlestick plot."""
+
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -21,8 +22,7 @@ title = "Dashboard séries chronologiques"
     Output("stock-candlestick-plot", "figure"), Input("dropdown-selection", "value")
 )
 def update_candlestick(value: str) -> Figure:
-    """
-    Update the candlestick plot.
+    """Update the candlestick plot.
 
     Parameters
     ----------
@@ -69,8 +69,7 @@ def update_candlestick(value: str) -> Figure:
 
 @callback(Output("stock-line-plot", "figure"), Input("dropdown-selection", "value"))
 def update_line_plot(value: str) -> Figure:
-    """
-    Update the line plot.
+    """Update the line plot.
 
     Parameters
     ----------

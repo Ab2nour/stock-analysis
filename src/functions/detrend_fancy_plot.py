@@ -26,10 +26,7 @@ def _fancy_plot(
             f"{key}: {value}" for key, value in fitted_parameters.items()
         )
         plt.suptitle(
-            (
-                "Visual summary of detrending using"
-                f"{method_name} with\n{parameters_string}"
-            )
+            f"Visual summary of detrending using{method_name} with\n{parameters_string}"
         )
 
     # first plot

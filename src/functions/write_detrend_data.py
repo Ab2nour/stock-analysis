@@ -47,5 +47,5 @@ if __name__ == "__main__":
     # Write processed files
     os.makedirs(processed_data_folder, exist_ok=True)  # Create folder if needed
 
-    for stock_name, detrend_data in zip(data_files.keys(), data_files.values()):
+    for stock_name, detrend_data in data_files.items():
         detrend_data.to_csv(f"{processed_data_folder}/{stock_name}")

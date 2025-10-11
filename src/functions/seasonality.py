@@ -28,7 +28,8 @@ class SeasonalPlotter:
             freq (str): Freq index.
             ax (matplotlib.axes._axes.Axes, optional): Matplotlib axe. Defaults to None.
 
-        Returns:
+        Returns
+        -------
             matplotlib.axes._axes.Axes: Matplotlib axe.
 
         Examples
@@ -69,7 +70,7 @@ class SeasonalPlotter:
             legend=False,
         )
         ax.set_title(f"Seasonal Plot ({period}/{freq})")
-        for line, name in zip(ax.lines, X[period].unique()):
+        for line, name in zip(ax.lines, X[period].unique(), strict=False):
             y_ = line.get_ydata()[-1]
             ax.annotate(
                 name,
@@ -99,7 +100,8 @@ class SeasonalPlotter:
             Defaults to False.
             ax (matplotlib.axes._axes.Axes, optional): Matplotlib axe. Defaults to None.
 
-        Returns:
+        Returns
+        -------
             matplotlib.axes._axes.Axes: Matplotlib axe of plotted periodogram
 
         Examples
@@ -153,20 +155,20 @@ class SeasonalPlotter:
 def check_stationarity_and_difference(
     ts: pd.Series, max_diff: int = 5, significance_level: float = 0.05
 ) -> tuple:
-    """
-    Iteratively applies differencing and checks stationarity
+    """Iteratively applies differencing and checks stationarity
     until the series becomes stationary.
 
-    Parameters:
+    Parameters
+    ----------
     - ts: Time series data (pandas Series).
     - max_diff: Maximum number of differencing steps to attempt.
     - significance_level: Significance level for the stationarity test.
 
-    Returns:
+    Returns
+    -------
     - Differenced series, number of differencing steps,
     and p-value of the stationarity test.
     """
-
     # Initializations
     diff_count = 0
     p_value = (

@@ -1,4 +1,5 @@
 """Detrend models."""
+
 import numpy as np
 import pandas as pd
 from scipy import interpolate
@@ -24,7 +25,8 @@ class BaseDetrend:
         Args:
             y (np.ndarray): 1 dimensional array of same length as y_original
 
-        Returns:
+        Returns
+        -------
             np.ndarray: detrended values, 1 dimensional array of length len(y)
         """
         self.y_predict = y - self.fitted_values
@@ -124,7 +126,7 @@ class PolynomialRegressionDetrend(BaseDetrend):
 
         # Fit and predict for each segment
         y_pred_segments = np.array([])
-        for X_segment, y_segment in zip(X_segments, y_segments):
+        for X_segment, y_segment in zip(X_segments, y_segments, strict=False):
             model = LinearRegression()
             model.fit(X_segment, y_segment)
             y_pred_segment = model.predict(X_segment)
@@ -141,9 +143,7 @@ class LinearMADetrend(BaseDetrend):
         self.window = window
 
     def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
-        """
-        Returns fitted values with the linear mobile average method
-        """
+        """Returns fitted values with the linear mobile average method"""
         linear_MA = (
             pd.DataFrame(y)
             .rolling(center=True, window=self.window, min_periods=1)
@@ -161,9 +161,7 @@ class ExponentialMADetrend(BaseDetrend):
         self.alpha = alpha
 
     def fit(self, y: np.ndarray | pd.DataFrame) -> np.ndarray:
-        """
-        Returns fitted values with the exponential mobile average method
-        """
+        """Returns fitted values with the exponential mobile average method"""
         expo_MA = pd.DataFrame(y).ewm(alpha=self.alpha, adjust=False).mean()
 
         self.y_original = y

@@ -1,4 +1,5 @@
 """Helper functions common to all dashboards."""
+
 import base64
 import io
 
@@ -7,8 +8,7 @@ import matplotlib.pyplot as plt
 
 
 def matplotlib_init_for_dash() -> None:
-    """
-    Run this before using Matplotlib with Dash.
+    """Run this before using Matplotlib with Dash.
 
     It fixes a crash:
         "Starting a Matplotlib GUI outside of the main thread will likely fail"
@@ -37,6 +37,6 @@ def plt_dash() -> str:
 
     data = base64.b64encode(buf.getbuffer()).decode("utf8")  # encode to html elements
     buf.close()
-    base64_encoded_image = "data:image/png;base64,{}".format(data)
+    base64_encoded_image = f"data:image/png;base64,{data}"
 
     return base64_encoded_image
