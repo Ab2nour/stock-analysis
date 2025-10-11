@@ -1,6 +1,7 @@
 """Data loading."""
 
 import pandas as pd
+
 from src.utils.constants import data_folder
 
 
@@ -22,3 +23,16 @@ def load_sample_data() -> pd.DataFrame:
     """
     sample_data = load_stock_data("AAPL")
     return sample_data
+
+
+def load_processed_data(stock_name: str, process_method: str) -> pd.DataFrame:
+    """Load processed data.
+
+    >>> stock_data = load_processed_data("AAPL", "detrend/LinearMADetrend/window-100")
+    """
+    processed_data = pd.read_csv(
+        f"{data_folder}/processed/{process_method}/{stock_name}.csv",
+        parse_dates=["Date"],
+        index_col="Date",
+    )
+    return processed_data
