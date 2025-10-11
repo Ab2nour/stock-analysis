@@ -17,7 +17,7 @@ if __name__ == "__main__":
     )
 
     # Gather files to process
-    data_folder = "data/raw_data"
+    data_folder = "data/raw"
     filenames = [f for f in os.listdir(data_folder) if f.endswith(".csv")]
 
     # Read files
