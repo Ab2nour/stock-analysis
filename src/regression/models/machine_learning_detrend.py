@@ -2,7 +2,6 @@
 
 from typing import TypeAlias
 
-import numpy as np
 from numpy.typing import ArrayLike
 from sklearn.ensemble import ExtraTreesRegressor
 from sklearn.linear_model import LinearRegression
@@ -14,7 +13,7 @@ DetrendRegressor: TypeAlias = LinearRegression
 
 def detrend_prediction(
     model: MLRegressor, regressor: LinearRegression, x: ArrayLike
-) -> np.ndarray:
+) -> ArrayLike:
     lr_predict = regressor.predict(x).reshape(-1, 1)
     y_pred = model.predict(x).reshape(-1, 1)
 
