@@ -1,9 +1,7 @@
 # Stock Analysis
 Analyse de cours boursiers dans le cadre du cours de Séries temporelles.
 
-|                                      |                               |
-|:------------------------------------:|:-----------------------------:|
-| ![](assets/img/aapl-candlestick.png) | ![](assets/img/aapl-pacf.png) |
+![](assets/img/prophet-prediction.gif)
 
 Etude de plusieurs actions issues du CAC40, S&P 500, crypto-monnaies (à décider...)
 
@@ -12,6 +10,10 @@ Etude de plusieurs actions issues du CAC40, S&P 500, crypto-monnaies (à décide
 - étude de la volatilité
 - clustering sur les différentes actions
 - clustering sur les caractéristiques des actions (ratios, rendements, volatilité, etc)
+
+|                                      |                               |
+|:------------------------------------:|:-----------------------------:|
+| ![](assets/img/aapl-candlestick.png) | ![](assets/img/aapl-pacf.png) |
 
 Nos séries temporelles s'étalent (pour la majorité) du début des années 2000 jusqu'à aujourd'hui.
 
