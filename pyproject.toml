@@ -99,11 +99,11 @@ convention = "numpy"
     ]
 
     [tool.poe.tasks.nbcheck]
-    help = "Check notebooks for metadata"
+    help = "Check notebooks for unnecessary metadata & empty cells"
     cmd = "nb-clean check . --preserve-cell-outputs --remove-empty-cells"
 
     [tool.poe.tasks.nbclean]
-    help = "Clean notebook metadatas"
+    help = "Clean notebook metadatas & empty cells"
     sequence = [
         { cmd = "nbdev_clean --fname ." },
         { cmd = "nb-clean clean . --preserve-cell-outputs --remove-empty-cells"},
