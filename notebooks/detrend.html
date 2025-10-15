@@ -1,0 +1,981 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Décomposition : tendance &#8212; Stock Analysis  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=19b21d1c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/detrend';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Décomposition : saisonnalité" href="seasonality.html" />
+    <link rel="prev" title="Analyse exploratoire" href="exploratory-data-analysis.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Stock Analysis  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">📊 Analyse</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exploratory-data-analysis.html">Analyse exploratoire</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Décomposition : tendance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="seasonality.html">Décomposition : saisonnalité</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prediction.html">Prédiction du cours boursier</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📒 Demo notebooks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../demo-notebooks/detrend_class.html">How to use detrend classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo-notebooks/candlestick_chart_detrend_data.html">How detrended data behave with candlestick chart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo-notebooks/download-data.html">How to download new stock data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 How-to guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../how-to/create-documentation-website.html">How to create documentation website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/code-quality.html">Code quality tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📖 Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../docstring/modules.html">Stock Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../docstring/dashboards.html">dashboards package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../docstring/functions.html">functions package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../docstring/notebooks.html">notebooks package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/detrend.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Décomposition : tendance</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports-et-lecture-des-donnees">Imports et lecture des données</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lecture-des-donnees">Lecture des données</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soustraction-de-la-tendance">Soustraction de la tendance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-lineaire">Régression linéaire</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-polynomiale-par-morceaux">Régression polynomiale par morceaux</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moyennes-mobiles">Moyennes mobiles</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lineaire">Linéaire</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exponentielle">Exponentielle</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-splines">B-splines</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="decomposition-tendance">
+<h1>Décomposition : tendance<a class="headerlink" href="#decomposition-tendance" title="Link to this heading">#</a></h1>
+<p><strong>Objectif</strong></p>
+<ul class="simple">
+<li><p>modéliser la tendance avec différents modèles</p></li>
+<li><p>soustraire la tendance</p></li>
+<li><p>comparer les modèles</p></li>
+</ul>
+<p><strong>Modèles choisis</strong></p>
+<ul class="simple">
+<li><p>Régression linéaire</p></li>
+<li><p>Régression polynomiale</p></li>
+<li><p>Moyenne mobile</p></li>
+<li><p>Moyenne mobile exponentielle</p></li>
+<li><p>B-Splines</p></li>
+</ul>
+<p><strong>Critères d’évaluation</strong></p>
+<ul class="simple">
+<li><p>AIC</p></li>
+<li><p>MSE</p></li>
+<li><p>graphiquement <em>(la courbe ne doit pas faire “n’importe quoi”)</em></p></li>
+</ul>
+<section id="imports-et-lecture-des-donnees">
+<h2>Imports et lecture des données<a class="headerlink" href="#imports-et-lecture-des-donnees" title="Link to this heading">#</a></h2>
+<section id="imports">
+<h3>Imports<a class="headerlink" href="#imports" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="linenos"> 2</span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="linenos"> 3</span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="linenos"> 4</span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="linenos"> 5</span><span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.graphics.tsaplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_acf</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="kn">from</span><span class="w"> </span><span class="nn">src.functions.detrend</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<span class="linenos"> 8</span>    <span class="n">BSplinesDetrend</span><span class="p">,</span>
+<span class="linenos"> 9</span>    <span class="n">ExponentialMADetrend</span><span class="p">,</span>
+<span class="linenos">10</span>    <span class="n">LinearMADetrend</span><span class="p">,</span>
+<span class="linenos">11</span>    <span class="n">LinearRegressionDetrend</span><span class="p">,</span>
+<span class="linenos">12</span>    <span class="n">PolynomialRegressionDetrend</span><span class="p">,</span>
+<span class="linenos">13</span><span class="p">)</span>
+<span class="linenos">14</span><span class="kn">from</span><span class="w"> </span><span class="nn">src.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_notebook</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">init_notebook</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">detrend_dict</span> <span class="o">=</span> <span class="p">{}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-des-donnees">
+<h3>Lecture des données<a class="headerlink" href="#lecture-des-donnees" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">data_folder</span> <span class="o">=</span> <span class="s2">&quot;data/raw&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">stock_name</span> <span class="o">=</span> <span class="s2">&quot;AAPL&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+<span class="linenos">2</span>    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_folder</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">stock_name</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">&quot;Date&quot;</span>
+<span class="linenos">3</span><span class="p">)</span>
+<span class="linenos">4</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>df.shape = (756, 6)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="soustraction-de-la-tendance">
+<h2>Soustraction de la tendance<a class="headerlink" href="#soustraction-de-la-tendance" title="Link to this heading">#</a></h2>
+<p>La tendance est, pour une série chronologique, sa composante première, inhérente à la nature des données. Elle peut le plus souvent se représenter par une droite, à la hausse ou à la baisse. Dans le cas des cours boursiers, le prix a une tendance généralement haussière, qui s’explique par le concept de croissance économique.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Closing price plot (daily) with trend&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;Closing price plot (daily) with trend&#39;}, xlabel=&#39;Date&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/e8d7bf8971615255a42bfe2de197555f44f8df3807139ee2f8ea055a9812d332.png" src="../_images/e8d7bf8971615255a42bfe2de197555f44f8df3807139ee2f8ea055a9812d332.png" />
+</div>
+</div>
+<section id="regression-lineaire">
+<h3>Régression linéaire<a class="headerlink" href="#regression-lineaire" title="Link to this heading">#</a></h3>
+<p>Soit le vecteur <span class="math notranslate nohighlight">\(Y = (y_1, \dots, y_N)\)</span> des prix de clôture du cours aux temps (ici, des jours) <span class="math notranslate nohighlight">\(1, \dots, N\)</span>.</p>
+<p>L’objectif est de s’ajuster aux données avec un modèle de régression linéaire simple donné par l’équation :</p>
+<div class="math notranslate nohighlight">
+\[Y = \beta_0 + \beta_1 * X\]</div>
+<p>où <span class="math notranslate nohighlight">\((\beta_0, \beta_1)\)</span> est le vecteur des paramètres à estimer<br />
+et <span class="math notranslate nohighlight">\(X = (1, \dots, N)\)</span> est le vecteur <em>time dummy</em> qui représente l’avancement linéaire du temps.</p>
+<p>Puis il faut soustraire au vecteur de données originales <span class="math notranslate nohighlight">\(Y\)</span> le vecteur des prédictions <span class="math notranslate nohighlight">\(Y_{pred}\)</span> :</p>
+<div class="math notranslate nohighlight">
+\[y_{detrend_i} = y_i - y_{pred_i} \hspace{12px} \forall i \in [1;N]\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Define time series to detrend</span>
+<span class="linenos">2</span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Define detrend model</span>
+<span class="linenos"> 2</span><span class="n">detrend_model</span> <span class="o">=</span> <span class="n">LinearRegressionDetrend</span><span class="p">()</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Fit model to time series</span>
+<span class="linenos"> 5</span><span class="n">y_fitted</span> <span class="o">=</span> <span class="n">detrend_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Substract adjusted values to original time series to get detrend data</span>
+<span class="linenos"> 8</span><span class="n">y_detrend</span> <span class="o">=</span> <span class="n">detrend_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Plot the result</span>
+<span class="linenos">11</span><span class="n">detrend_model</span><span class="o">.</span><span class="n">fancy_plot</span><span class="p">(</span><span class="n">xticklabels</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/stock-analysis/stock-analysis/src/functions/detrend_fancy_plot.py:40: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  axs[0].set_xticklabels(xticklabels)
+/home/runner/work/stock-analysis/stock-analysis/src/functions/detrend_fancy_plot.py:48: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  axs[1].set_xticklabels(xticklabels)
+</pre></div>
+</div>
+<img alt="../_images/fab6d637cb9c25154f2ea9a5a9d12bbdbff15f7c451c3a5cb10cc051f44ca90b.png" src="../_images/fab6d637cb9c25154f2ea9a5a9d12bbdbff15f7c451c3a5cb10cc051f44ca90b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">aic</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_detrend</span><span class="p">,</span> <span class="n">nb_parameters</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="linenos">2</span>    <span class="n">k</span> <span class="o">=</span> <span class="n">nb_parameters</span>
+<span class="linenos">3</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span>    <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_detrend</span><span class="p">)</span>
+<span class="linenos">6</span>    <span class="n">aic</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">k</span>
+<span class="linenos">7</span>
+<span class="linenos">8</span>    <span class="k">return</span> <span class="n">aic</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">aic_detrend</span> <span class="o">=</span> <span class="n">aic</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_detrend</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos">2</span><span class="n">mse_detrend</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_detrend</span><span class="p">)</span>
+<span class="linenos">3</span><span class="n">detrend_dict</span><span class="p">[</span><span class="s2">&quot;Régression linéaire&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">aic_detrend</span><span class="p">,</span> <span class="n">mse_detrend</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Input detrend close price into dataframe</span>
+<span class="linenos">2</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close_detrend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_detrend</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># acf plot before / after</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">lag</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span><span class="n">_</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="linenos">6</span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lags</span><span class="o">=</span><span class="n">lag</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;ACF plot - Close price&quot;</span><span class="p">)</span>
+<span class="linenos">7</span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span>
+<span class="linenos">8</span>    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close_detrend&quot;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lags</span><span class="o">=</span><span class="n">lag</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;ACF plot - Close price detrend&quot;</span>
+<span class="linenos">9</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b5843f8c85c49affbc9980bc0aca15dabac4025990168a82871ecfdaa4aaa1e8.png" src="../_images/b5843f8c85c49affbc9980bc0aca15dabac4025990168a82871ecfdaa4aaa1e8.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Les fortes autocorrélations dans le premier graphique montrent que la série temporelle contient une <b>tendance</b>.</p></li>
+<li><p>Après déconstruction de la tendance, le deuxième graphique affiche cependant encore des autocorrélations importantes <b>pour des lags petits</b>. C’est un indice de <b>saisonnalité</b> ou de <b>cyclicité</b>.</p></li>
+</ul>
+</section>
+<section id="regression-polynomiale-par-morceaux">
+<h3>Régression polynomiale par morceaux<a class="headerlink" href="#regression-polynomiale-par-morceaux" title="Link to this heading">#</a></h3>
+<p>Soit <span class="math notranslate nohighlight">\(k \in N^*\)</span>.<br />
+Pour la régression polynomiale d’ordre <span class="math notranslate nohighlight">\(k\)</span>, le même principe que la régression linéaire simple est appliqué mais avec la particularité que des <i>time dummies</i> d’ordre <span class="math notranslate nohighlight">\(1, \dots, k\)</span> sont ajoutées comme variables explicatives au modèle.<br />
+L’équation de régression devient :</p>
+<div class="math notranslate nohighlight">
+\[ Y = \sum_{i=0}^{k} \beta_i * X_i\]</div>
+<p>où pour tout <span class="math notranslate nohighlight">\(i \in [1;k], \hspace{6px} X_i = (1^i, 2^i, \dots, N^i)\)</span>.</p>
+<p>Cette méthode permet de capter une tendance polynomiale (croissante au carré du temps par exemple).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Choose parameters of segmented polynomial regression</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">order</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="linenos">4</span><span class="n">n_segments</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Define detrend model</span>
+<span class="linenos"> 2</span><span class="n">detrend_model</span> <span class="o">=</span> <span class="n">PolynomialRegressionDetrend</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">n_segments</span><span class="o">=</span><span class="n">n_segments</span><span class="p">)</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Fit model to time series</span>
+<span class="linenos"> 5</span><span class="n">y_fitted</span> <span class="o">=</span> <span class="n">detrend_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Substract adjusted values to original time series to get detrend data</span>
+<span class="linenos"> 8</span><span class="n">y_detrend</span> <span class="o">=</span> <span class="n">detrend_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Plot the result</span>
+<span class="linenos">11</span><span class="n">detrend_model</span><span class="o">.</span><span class="n">fancy_plot</span><span class="p">(</span><span class="n">xticklabels</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/stock-analysis/stock-analysis/src/functions/detrend_fancy_plot.py:40: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  axs[0].set_xticklabels(xticklabels)
+/home/runner/work/stock-analysis/stock-analysis/src/functions/detrend_fancy_plot.py:48: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  axs[1].set_xticklabels(xticklabels)
+</pre></div>
+</div>
+<img alt="../_images/06579e2d50b9e9429bb0597faa694af75703f174d55b3d9f84e03e968f6429af.png" src="../_images/06579e2d50b9e9429bb0597faa694af75703f174d55b3d9f84e03e968f6429af.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">aic_detrend</span> <span class="o">=</span> <span class="n">aic</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_detrend</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos">2</span><span class="n">mse_detrend</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_detrend</span><span class="p">)</span>
+<span class="linenos">3</span><span class="n">detrend_dict</span><span class="p">[</span><span class="s2">&quot;Régression polynomiale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">aic_detrend</span><span class="p">,</span> <span class="n">mse_detrend</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="moyennes-mobiles">
+<h3>Moyennes mobiles<a class="headerlink" href="#moyennes-mobiles" title="Link to this heading">#</a></h3>
+<section id="lineaire">
+<h4>Linéaire<a class="headerlink" href="#lineaire" title="Link to this heading">#</a></h4>
+<p>On se munit de <span class="math notranslate nohighlight">\((x_t)_{t \in \mathbb{N}}\)</span> une série temporelle.</p>
+<p>Soit <span class="math notranslate nohighlight">\((k, t) \in \mathbb{N}^* \times \llbracket k~;~+\infty \rrbracket\)</span>,<br />
+la moyenne mobile linéaire à gauche de profondeur <span class="math notranslate nohighlight">\(k\)</span> pour <span class="math notranslate nohighlight">\(x_t\)</span> est :</p>
+<div class="math notranslate nohighlight">
+\[ma_k(x_t) = \frac{\displaystyle \sum_{i=t-k+1}^{t}x_i}{k}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Define detrend model</span>
+<span class="linenos"> 2</span><span class="n">detrend_model</span> <span class="o">=</span> <span class="n">LinearMADetrend</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Fit model to time series</span>
+<span class="linenos"> 5</span><span class="n">y_fitted</span> <span class="o">=</span> <span class="n">detrend_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Substract adjusted values to original time series to get detrend data</span>
+<span class="linenos"> 8</span><span class="n">y_detrend</span> <span class="o">=</span> <span class="n">detrend_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Plot the result</span>
+<span class="linenos">11</span><span class="n">detrend_model</span><span class="o">.</span><span class="n">fancy_plot</span><span class="p">(</span><span class="n">xticklabels</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/stock-analysis/stock-analysis/src/functions/detrend_fancy_plot.py:40: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  axs[0].set_xticklabels(xticklabels)
+/home/runner/work/stock-analysis/stock-analysis/src/functions/detrend_fancy_plot.py:48: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  axs[1].set_xticklabels(xticklabels)
+</pre></div>
+</div>
+<img alt="../_images/b8575fa375f307617efcedee037125fbbeea044d4c271f0fa7180f827ab165bf.png" src="../_images/b8575fa375f307617efcedee037125fbbeea044d4c271f0fa7180f827ab165bf.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">aic_detrend</span> <span class="o">=</span> <span class="n">aic</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_detrend</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos">2</span><span class="n">mse_detrend</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_detrend</span><span class="p">)</span>
+<span class="linenos">3</span><span class="n">detrend_dict</span><span class="p">[</span><span class="s2">&quot;Moyenne mobile linéaire&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">aic_detrend</span><span class="p">,</span> <span class="n">mse_detrend</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exponentielle">
+<h4>Exponentielle<a class="headerlink" href="#exponentielle" title="Link to this heading">#</a></h4>
+<p>La moyenne mobile exponentielle fait partie de la famille des moyennes mobiles pondérées.</p>
+<p>On se munit de <span class="math notranslate nohighlight">\((x_t)_{t \in \mathbb{N}}\)</span> une série temporelle.</p>
+<p>Soit <span class="math notranslate nohighlight">\(t \in \mathbb{N}^*\)</span> et <span class="math notranslate nohighlight">\(\alpha \in [0;1]\)</span> une constante de lissage.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+expma(x_{t})
+    &amp; = \alpha \left ( x_t + (1 - \alpha) x_{t - 1} + (1 - \alpha)^2 x_{t-2} + (1 - \alpha)^3 x_{t - 3} + \dots \right ) \\
+    &amp; = \displaystyle\sum_{n = 0}^{t} \alpha(1 - \alpha)^n x_{t - n}
+\end{align}
+\end{split}\]</div>
+<p>On remarque que la moyenne mobile exponentielle à l’instant <span class="math notranslate nohighlight">\(t\)</span> prend en compte toutes les données qui précèdent. Toutefois, les valeurs très antérieures impactent très peu le résultat - d’autant plus que <span class="math notranslate nohighlight">\(\alpha\)</span> est grand - et peuvent donc être négligées.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Define detrend model</span>
+<span class="linenos"> 2</span><span class="n">detrend_model</span> <span class="o">=</span> <span class="n">ExponentialMADetrend</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Fit model to time series</span>
+<span class="linenos"> 5</span><span class="n">y_fitted</span> <span class="o">=</span> <span class="n">detrend_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Substract adjusted values to original time series to get detrend data</span>
+<span class="linenos"> 8</span><span class="n">y_detrend</span> <span class="o">=</span> <span class="n">detrend_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Plot the result</span>
+<span class="linenos">11</span><span class="n">detrend_model</span><span class="o">.</span><span class="n">fancy_plot</span><span class="p">(</span><span class="n">xticklabels</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/stock-analysis/stock-analysis/src/functions/detrend_fancy_plot.py:40: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  axs[0].set_xticklabels(xticklabels)
+/home/runner/work/stock-analysis/stock-analysis/src/functions/detrend_fancy_plot.py:48: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  axs[1].set_xticklabels(xticklabels)
+</pre></div>
+</div>
+<img alt="../_images/5bbc65d4928a1234f38a22ecf8c33d36a5731eb794865cac2487ac3df59d2fc2.png" src="../_images/5bbc65d4928a1234f38a22ecf8c33d36a5731eb794865cac2487ac3df59d2fc2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">aic_detrend</span> <span class="o">=</span> <span class="n">aic</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_detrend</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos">2</span><span class="n">mse_detrend</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_detrend</span><span class="p">)</span>
+<span class="linenos">3</span><span class="n">detrend_dict</span><span class="p">[</span><span class="s2">&quot;Moyenne mobile exponentielle&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">aic_detrend</span><span class="p">,</span> <span class="n">mse_detrend</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="b-splines">
+<h3>B-splines<a class="headerlink" href="#b-splines" title="Link to this heading">#</a></h3>
+<p>Étant donné <span class="math notranslate nohighlight">\(m + 1\)</span> nœuds <span class="math notranslate nohighlight">\( \{t_i \in [0, 1]\}_{i \in [0, m]} \)</span> indexés selon le temps,<br />
+une courbe spline de degré <span class="math notranslate nohighlight">\(n \in \mathbb{N^*}\)</span> est une fonction paramétrique définie par :</p>
+<div class="math notranslate nohighlight">
+\[ \mathbf{S} \,:\, [0,1] \to \mathbb{R}^d\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+S : \begin{cases}
+\mathbb{[0, 1]} &amp; \rightarrow \mathbb{R}^2 \\
+t &amp; \rightarrow \displaystyle \sum_{i = 0}^{m - n - 1} b_{i, n} (t) . \mathbf{P}_{i} * \mathbb{1}_{t \in [t_{n}, t_{m-n}]}
+\end{cases}
+\end{split}\]</div>
+<p>Les B-splines sont des fonctions utilisées pour l’interpolation ou l’approximation de fonctions continues à partir de données discrètes.</p>
+<p><span class="math notranslate nohighlight">\(\forall k \in \mathbb{N^*}\)</span>, la fonction B-spline de degré k, notée <span class="math notranslate nohighlight">\(B_{i, k}(t)\)</span>, est définie récursivement comme suit :</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} B_{i,0}(t) = \begin{cases} 1 &amp; \text{si } t_i \leq t &lt; t_{i+1} \\ 0 &amp; \text{sinon} \end{cases} \end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+B_{i,k}(t) = \frac{t - t_i}{t_{i+k} - t_i} B_{i,k-1}(t) + \frac{t_{i+k+1} - t}{t_{i+k+1} - t_{i+1}} B_{i+1,k-1}(t)
+\]</div>
+<p>Pour <span class="math notranslate nohighlight">\( i \in {0,1,…,n−k−2}\)</span>, où <span class="math notranslate nohighlight">\(n\)</span> est le nombre total de points de contrôle et <span class="math notranslate nohighlight">\(k\)</span> est l’ordre des B-splines.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Define parameters for B-splines</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">interval_length</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># Days between two knots</span>
+<span class="linenos">4</span><span class="n">degree</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Define detrend model</span>
+<span class="linenos"> 2</span><span class="n">detrend_model</span> <span class="o">=</span> <span class="n">BSplinesDetrend</span><span class="p">(</span><span class="n">interval_length</span><span class="o">=</span><span class="n">interval_length</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="n">degree</span><span class="p">)</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Fit model to time series</span>
+<span class="linenos"> 5</span><span class="n">y_fitted</span> <span class="o">=</span> <span class="n">detrend_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Substract adjusted values to original time series to get detrend data</span>
+<span class="linenos"> 8</span><span class="n">y_detrend</span> <span class="o">=</span> <span class="n">detrend_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Plot the result</span>
+<span class="linenos">11</span><span class="n">detrend_model</span><span class="o">.</span><span class="n">fancy_plot</span><span class="p">(</span><span class="n">xticklabels</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/stock-analysis/stock-analysis/src/functions/detrend_fancy_plot.py:40: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  axs[0].set_xticklabels(xticklabels)
+/home/runner/work/stock-analysis/stock-analysis/src/functions/detrend_fancy_plot.py:48: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  axs[1].set_xticklabels(xticklabels)
+</pre></div>
+</div>
+<img alt="../_images/1a966f9208f0bf0cf396b3c5c243d60e17aa3d64f975e496345d0a0ed378c816.png" src="../_images/1a966f9208f0bf0cf396b3c5c243d60e17aa3d64f975e496345d0a0ed378c816.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">aic_detrend</span> <span class="o">=</span> <span class="n">aic</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_detrend</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos">2</span><span class="n">mse_detrend</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_detrend</span><span class="p">)</span>
+<span class="linenos">3</span><span class="n">detrend_dict</span><span class="p">[</span><span class="s2">&quot;B-Splines&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">aic_detrend</span><span class="p">,</span> <span class="n">mse_detrend</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>La méthode des BSplines de degré 1 correspond à de l’interpolation linéaire :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">detrend_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">detrend_dict</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="linenos">2</span><span class="n">detrend_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AIC&quot;</span><span class="p">,</span> <span class="s2">&quot;MSE&quot;</span><span class="p">]</span>
+<span class="linenos">3</span><span class="n">detrend_df</span><span class="p">[</span><span class="s2">&quot;Graphiquement&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;✅&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># print(detrend_df.to_markdown())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">detrend_df</span><span class="p">[[</span><span class="s2">&quot;AIC&quot;</span><span class="p">,</span> <span class="s2">&quot;MSE&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
+<span class="linenos">2</span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Comparaison des modèles de tendance&quot;</span><span class="p">)</span>
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([0, 1, 2, 3, 4]),
+ [Text(0, 0, &#39;Régression linéaire&#39;),
+  Text(1, 0, &#39;Régression polynomiale&#39;),
+  Text(2, 0, &#39;Moyenne mobile linéaire&#39;),
+  Text(3, 0, &#39;Moyenne mobile exponentielle&#39;),
+  Text(4, 0, &#39;B-Splines&#39;)])
+</pre></div>
+</div>
+<img alt="../_images/acfe4b12e44f75e509872ce62ea4452632db0847a075f95d045e6c7f67efc436.png" src="../_images/acfe4b12e44f75e509872ce62ea4452632db0847a075f95d045e6c7f67efc436.png" />
+</div>
+</div>
+<p><strong>Tableau.</strong> Comparaison des modèles de tendance</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p></p></th>
+<th class="head text-right"><p>AIC</p></th>
+<th class="head text-right"><p>MSE</p></th>
+<th class="head text-left"><p>Graphiquement</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Régression linéaire</p></td>
+<td class="text-right"><p>7005.56</p></td>
+<td class="text-right"><p>10523.1</p></td>
+<td class="text-left"><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Régression polynomiale</p></td>
+<td class="text-right"><p>7023.09</p></td>
+<td class="text-right"><p>10770</p></td>
+<td class="text-left"><p>✅</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Moyenne mobile linéaire</p></td>
+<td class="text-right"><p>7014.76</p></td>
+<td class="text-right"><p>10651.8</p></td>
+<td class="text-left"><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Moyenne mobile exponentielle</strong></p></td>
+<td class="text-right"><p><strong>6973.26</strong></p></td>
+<td class="text-right"><p><strong>10082.9</strong></p></td>
+<td class="text-left"><p>✅</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>B-Splines</p></td>
+<td class="text-right"><p>7005.56</p></td>
+<td class="text-right"><p>10523.1</p></td>
+<td class="text-left"><p>✅</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Meilleur modèle : moyenne mobile exponentielle</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="exploratory-data-analysis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Analyse exploratoire</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="seasonality.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Décomposition : saisonnalité</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports-et-lecture-des-donnees">Imports et lecture des données</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lecture-des-donnees">Lecture des données</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soustraction-de-la-tendance">Soustraction de la tendance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-lineaire">Régression linéaire</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-polynomiale-par-morceaux">Régression polynomiale par morceaux</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moyennes-mobiles">Moyennes mobiles</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lineaire">Linéaire</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exponentielle">Exponentielle</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-splines">B-splines</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ab2nour, jExbrayat
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Ab2nour, jExbrayat.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

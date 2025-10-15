@@ -1,0 +1,1043 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Décomposition : saisonnalité &#8212; Stock Analysis  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=19b21d1c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/seasonality';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Prédiction du cours boursier" href="prediction.html" />
+    <link rel="prev" title="Décomposition : tendance" href="detrend.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Stock Analysis  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">📊 Analyse</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exploratory-data-analysis.html">Analyse exploratoire</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detrend.html">Décomposition : tendance</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Décomposition : saisonnalité</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prediction.html">Prédiction du cours boursier</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📒 Demo notebooks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../demo-notebooks/detrend_class.html">How to use detrend classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo-notebooks/candlestick_chart_detrend_data.html">How detrended data behave with candlestick chart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo-notebooks/download-data.html">How to download new stock data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 How-to guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../how-to/create-documentation-website.html">How to create documentation website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/code-quality.html">Code quality tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📖 Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../docstring/modules.html">Stock Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../docstring/dashboards.html">dashboards package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../docstring/functions.html">functions package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../docstring/notebooks.html">notebooks package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/seasonality.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Décomposition : saisonnalité</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-des-donnees-traitees-de-la-tendance">Import des données traitées de la tendance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphe-de-saisonnalite-en-utilisant-l-api-statsmodels">Graphe de saisonnalité en utilisant l’API statsmodels</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saisonnalite-mensuelle">Saisonnalité mensuelle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saisonnalite-hebdomadaire">Saisonnalité hebdomadaire</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphe-de-saisonnalite-par-superposition-de-series">Graphe de saisonnalité par superposition de séries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#periodogramme">Périodogramme</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#differenciation-saisonniere">Différenciation saisonnière</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determination-de-l-ordre-autoregressif">Détermination de l’ordre autorégressif</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determination-de-l-ordre-de-moyenne-mobile">Détermination de l’ordre de moyenne mobile</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modele-arima">Modèle ARIMA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determination-de-l-ordre-de-differenciation">Détermination de l’ordre de différenciation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Détermination de l’ordre autorégressif</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Détermination de l’ordre de moyenne mobile</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="decomposition-saisonnalite">
+<h1>Décomposition : saisonnalité<a class="headerlink" href="#decomposition-saisonnalite" title="Link to this heading">#</a></h1>
+<p><strong>Objectif</strong></p>
+<ul class="simple">
+<li><p>modéliser la saisonnalité <em>(pour repérer les mouvements saisonniers de notre série)</em></p></li>
+<li><p>soustraire la saisonnalité</p></li>
+<li><p>déterminer les ordres de différenciation, d’autorégressif, de moyenne mobile</p></li>
+</ul>
+<p><strong>Outils pour la saisonnalité</strong></p>
+<ul class="simple">
+<li><p>seasonal plot <em>(sans et avec superposition de séries)</em></p></li>
+<li><p>périodogramme</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="linenos">2</span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="linenos">3</span><span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="linenos">4</span><span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.graphics.tsaplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_acf</span><span class="p">,</span> <span class="n">plot_pacf</span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="kn">from</span><span class="w"> </span><span class="nn">src.functions.seasonality</span><span class="w"> </span><span class="kn">import</span> <span class="n">SeasonalPlotter</span><span class="p">,</span> <span class="n">check_stationarity_and_difference</span>
+<span class="linenos">7</span><span class="kn">from</span><span class="w"> </span><span class="nn">src.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_notebook</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">init_notebook</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="import-des-donnees-traitees-de-la-tendance">
+<h2>Import des données traitées de la tendance<a class="headerlink" href="#import-des-donnees-traitees-de-la-tendance" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">data_folder</span> <span class="o">=</span> <span class="s2">&quot;data/processed/detrend/LinearMADetrend/window-100&quot;</span>
+<span class="linenos">2</span><span class="n">stock_name</span> <span class="o">=</span> <span class="s2">&quot;AAPL&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">df_detrend</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+<span class="linenos">2</span>    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_folder</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">stock_name</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">&quot;Date&quot;</span>
+<span class="linenos">3</span><span class="p">)</span>
+<span class="linenos">4</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_detrend</span><span class="o">.</span><span class="n">shape</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>df_detrend.shape = (756, 6)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">df_detrend</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Adj Close</th>
+      <th>Volume</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2019-01-02</th>
+      <td>-2.636750</td>
+      <td>-1.646748</td>
+      <td>-2.801751</td>
+      <td>-1.879250</td>
+      <td>-3.465916</td>
+      <td>148158800</td>
+    </tr>
+    <tr>
+      <th>2019-01-03</th>
+      <td>-5.465638</td>
+      <td>-5.030637</td>
+      <td>-5.960637</td>
+      <td>-5.913137</td>
+      <td>-7.341764</td>
+      <td>365248800</td>
+    </tr>
+    <tr>
+      <th>2019-01-04</th>
+      <td>-5.434760</td>
+      <td>-4.429759</td>
+      <td>-5.617259</td>
+      <td>-4.502261</td>
+      <td>-5.991877</td>
+      <td>234428400</td>
+    </tr>
+    <tr>
+      <th>2019-01-07</th>
+      <td>-4.487831</td>
+      <td>-4.455330</td>
+      <td>-5.187832</td>
+      <td>-4.680332</td>
+      <td>-6.166622</td>
+      <td>219111200</td>
+    </tr>
+    <tr>
+      <th>2019-01-08</th>
+      <td>-4.372408</td>
+      <td>-3.807405</td>
+      <td>-4.632406</td>
+      <td>-4.074907</td>
+      <td>-5.589533</td>
+      <td>164101200</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Take close price only</span>
+<span class="linenos">2</span><span class="n">close_detrend</span> <span class="o">=</span> <span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="graphe-de-saisonnalite-en-utilisant-l-api-statsmodels">
+<h2>Graphe de saisonnalité en utilisant l’API statsmodels<a class="headerlink" href="#graphe-de-saisonnalite-en-utilisant-l-api-statsmodels" title="Link to this heading">#</a></h2>
+<section id="saisonnalite-mensuelle">
+<h3>Saisonnalité mensuelle<a class="headerlink" href="#saisonnalite-mensuelle" title="Link to this heading">#</a></h3>
+<p>Pour chaque mois, on fait la moyenne des prix de clôture.<br />
+Puis on affiche le graphe de saisonnalité.<br />
+La barre rouge représente, pour le mois de janvier par exemple, la moyenne sur tous les mois de janvier (01-19, 01-20, 01-21 etc.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">close_monthly_resample</span> <span class="o">=</span> <span class="n">close_detrend</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;M&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="linenos">2</span><span class="n">close_monthly_resample</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2518/44547265.py:1: FutureWarning: &#39;M&#39; is deprecated and will be removed in a future version, please use &#39;ME&#39; instead.
+  close_monthly_resample = close_detrend.resample(&quot;M&quot;).mean()
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date
+2019-01-31   -3.792133
+2019-02-28   -1.279019
+2019-03-31    0.514090
+2019-04-30    3.201218
+2019-05-31   -0.825486
+Freq: ME, Name: Close, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">fig</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">month_plot</span><span class="p">(</span><span class="n">close_monthly_resample</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Close price&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/9ff500b8672fcda94419ace0db9c0c2d780a3d62436ba6769e8ed53511b570c3.png" src="../_images/9ff500b8672fcda94419ace0db9c0c2d780a3d62436ba6769e8ed53511b570c3.png" />
+</div>
+</div>
+</section>
+<section id="saisonnalite-hebdomadaire">
+<h3>Saisonnalité hebdomadaire<a class="headerlink" href="#saisonnalite-hebdomadaire" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Resample on week frequency</span>
+<span class="linenos">2</span><span class="n">close_weekly_resample</span> <span class="o">=</span> <span class="n">close_detrend</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="linenos">3</span><span class="n">close_weekly_resample</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date
+2019-01-06    -4.098216
+2019-01-13    -3.975125
+2019-01-20    -3.798467
+2019-01-27    -4.138694
+2019-02-03    -2.734122
+                ...    
+2021-12-05     6.961971
+2021-12-12    16.062935
+2021-12-19    16.276648
+2021-12-26    14.106925
+2022-01-02    18.462308
+Freq: W-SUN, Name: Close, Length: 157, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Create groupby object needed by seasonal_plot function of statsmodels</span>
+<span class="linenos">2</span><span class="n">groupby_week_object</span> <span class="o">=</span> <span class="n">close_weekly_resample</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="k">lambda</span> <span class="n">resample</span><span class="p">:</span> <span class="n">resample</span><span class="o">.</span><span class="n">week</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Define xticklabels, index of week</span>
+<span class="linenos">2</span><span class="n">xticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">54</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Seasonal plot</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="linenos"> 4</span><span class="n">fig</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">seasonal_plot</span><span class="p">(</span>
+<span class="linenos"> 5</span>    <span class="n">groupby_week_object</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="n">xticklabels</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Close price&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+<span class="linenos"> 6</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># Prevent some xticks from plotting</span>
+<span class="linenos"> 9</span><span class="n">every_nth_tick</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="linenos">10</span><span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">get_ticklabels</span><span class="p">()):</span>
+<span class="linenos">11</span>    <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">every_nth_tick</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">12</span>        <span class="n">label</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fd86ad6dae984e3665d2c2d464fa864a12933ead02fa09dc1b25161f1e348d14.png" src="../_images/fd86ad6dae984e3665d2c2d464fa864a12933ead02fa09dc1b25161f1e348d14.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="graphe-de-saisonnalite-par-superposition-de-series">
+<h2>Graphe de saisonnalité par superposition de séries<a class="headerlink" href="#graphe-de-saisonnalite-par-superposition-de-series" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Copy dataframe for seasonal plot</span>
+<span class="linenos"> 2</span><span class="n">df_detrend_seasonality</span> <span class="o">=</span> <span class="n">df_detrend</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Adapt index for function</span>
+<span class="linenos"> 5</span><span class="n">df_detrend_seasonality</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df_detrend_seasonality</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Define dummies</span>
+<span class="linenos"> 8</span><span class="n">df_detrend_seasonality</span><span class="p">[</span><span class="s2">&quot;weekofyear&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_detrend_seasonality</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">week</span>
+<span class="linenos"> 9</span><span class="n">df_detrend_seasonality</span><span class="p">[</span><span class="s2">&quot;dayofyear&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_detrend_seasonality</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">dayofyear</span>
+<span class="linenos">10</span><span class="n">df_detrend_seasonality</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_detrend_seasonality</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Seasonal plot</span>
+<span class="linenos">2</span><span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="linenos">3</span><span class="n">SeasonalPlotter</span><span class="o">.</span><span class="n">seasonal_plot</span><span class="p">(</span>
+<span class="linenos">4</span>    <span class="n">X</span><span class="o">=</span><span class="n">df_detrend_seasonality</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Close&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;weekofyear&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+<span class="linenos">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/stock-analysis/stock-analysis/src/functions/seasonality.py:62: FutureWarning: 
+
+The `ci` parameter is deprecated. Use `errorbar=(&#39;ci&#39;, False)` for the same effect.
+
+  ax = sns.lineplot(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;Seasonal Plot (year/weekofyear)&#39;}, xlabel=&#39;weekofyear&#39;, ylabel=&#39;Close&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/8508adecf0c4ec7370bdab47515580bbbf95f0bd48df3515d979b0e95e96a399.png" src="../_images/8508adecf0c4ec7370bdab47515580bbbf95f0bd48df3515d979b0e95e96a399.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Seasonal plot</span>
+<span class="linenos">2</span><span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="linenos">3</span><span class="n">SeasonalPlotter</span><span class="o">.</span><span class="n">seasonal_plot</span><span class="p">(</span>
+<span class="linenos">4</span>    <span class="n">X</span><span class="o">=</span><span class="n">df_detrend_seasonality</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Close&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;dayofyear&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+<span class="linenos">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/stock-analysis/stock-analysis/src/functions/seasonality.py:62: FutureWarning: 
+
+The `ci` parameter is deprecated. Use `errorbar=(&#39;ci&#39;, False)` for the same effect.
+
+  ax = sns.lineplot(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;Seasonal Plot (year/dayofyear)&#39;}, xlabel=&#39;dayofyear&#39;, ylabel=&#39;Close&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/64876950726400a22d97d927f05c7c93d57d4d994e0f4d1363c70c64e90d17f1.png" src="../_images/64876950726400a22d97d927f05c7c93d57d4d994e0f4d1363c70c64e90d17f1.png" />
+</div>
+</div>
+</section>
+<section id="periodogramme">
+<h2>Périodogramme<a class="headerlink" href="#periodogramme" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">SeasonalPlotter</span><span class="o">.</span><span class="n">plot_periodogram</span><span class="p">(</span><span class="n">time_series</span><span class="o">=</span><span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span> <span class="n">detrend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;Periodogram&#39;}, ylabel=&#39;Variance&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/6da6a50bb4c67d1f16f1d000e42407d95291ec1dc9a751997ebfafc3e7f0f63c.png" src="../_images/6da6a50bb4c67d1f16f1d000e42407d95291ec1dc9a751997ebfafc3e7f0f63c.png" />
+</div>
+</div>
+<p>Le périodogramme met en évidence des fréquences importantes semi-annuelle et trimestrielle.<br />
+Ces fréquences se constatent sur les graphes de saisonnalité, avec des cycles trimestrielles.</p>
+</section>
+<section id="differenciation-saisonniere">
+<h2>Différenciation saisonnière<a class="headerlink" href="#differenciation-saisonniere" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Define the seasonal frequencies</span>
+<span class="linenos">2</span><span class="n">quarterly_freq</span> <span class="o">=</span> <span class="mi">90</span>
+<span class="linenos">3</span><span class="n">semiannual_freq</span> <span class="o">=</span> <span class="mi">180</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Differencing on quaterly frequency</span>
+<span class="linenos">2</span><span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;close_without_season&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span>
+<span class="linenos">3</span>    <span class="n">quarterly_freq</span>
+<span class="linenos">4</span><span class="p">)</span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="c1"># Differencing on semiannual frequency</span>
+<span class="linenos">7</span><span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;close_without_season&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;close_without_season&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_detrend</span><span class="p">[</span>
+<span class="linenos">8</span>    <span class="s2">&quot;Close&quot;</span>
+<span class="linenos">9</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">semiannual_freq</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;close_without_season&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.int64(180)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nous choisissons donc le paramètre <span class="math notranslate nohighlight">\(D\)</span> valant 90 pour la saisonnalité dans le modèle SARIMA.</p>
+<p>Nous avons désormais un jeu de données sans saisonnalité avec 180 jours de données manquantes.<br />
+Cet effet est dû à la différenciation semi annuelle.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Close price detrended&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;Close price detrended&#39;}, xlabel=&#39;Date&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/056e469fad04b709b3a25680ca17c5ed24f5d91a9becdf028ceeb7bbc8f0dc68.png" src="../_images/056e469fad04b709b3a25680ca17c5ed24f5d91a9becdf028ceeb7bbc8f0dc68.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;close_without_season&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<span class="linenos">2</span>    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Close price detrended and differenced for seasonality&quot;</span>
+<span class="linenos">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;Close price detrended and differenced for seasonality&#39;}, xlabel=&#39;Date&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/16610e56b28bd249dd02261a1e6dbe1e2938d151974e0bf7ff3b736bbaa59733.png" src="../_images/16610e56b28bd249dd02261a1e6dbe1e2938d151974e0bf7ff3b736bbaa59733.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;close_without_season&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+<span class="linenos">2</span>    <span class="s2">&quot;data/processed/seasonality/quaterly_semiannual_differencing/AAPL.csv&quot;</span>
+<span class="linenos">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="determination-de-l-ordre-autoregressif">
+<h3>Détermination de l’ordre autorégressif<a class="headerlink" href="#determination-de-l-ordre-autoregressif" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">lag</span> <span class="o">=</span> <span class="p">(</span>
+<span class="linenos">2</span>    <span class="nb">len</span><span class="p">(</span><span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">])</span> <span class="o">//</span> <span class="mi">10</span>
+<span class="linenos">3</span><span class="p">)</span>  <span class="c1"># Display lags from 0 to 1/10 of time series length</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span> <span class="n">lags</span><span class="o">=</span><span class="n">lag</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;PACF plot - Close price detrended&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e0250184c3d48569e4d6c1900cc96e482f69aab3dba6b4512134f48dee7896e4.png" src="../_images/e0250184c3d48569e4d6c1900cc96e482f69aab3dba6b4512134f48dee7896e4.png" />
+</div>
+</div>
+<p>Nous choisissons <span class="math notranslate nohighlight">\(P\)</span> valant 2 pour la partie saisonnière du modèle SARIMA.</p>
+</section>
+<section id="determination-de-l-ordre-de-moyenne-mobile">
+<h3>Détermination de l’ordre de moyenne mobile<a class="headerlink" href="#determination-de-l-ordre-de-moyenne-mobile" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">lag</span> <span class="o">=</span> <span class="p">(</span>
+<span class="linenos">2</span>    <span class="nb">len</span><span class="p">(</span><span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">])</span> <span class="o">//</span> <span class="mi">10</span>
+<span class="linenos">3</span><span class="p">)</span>  <span class="c1"># Display lags from 0 to 1/10 of time series length</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span> <span class="n">lags</span><span class="o">=</span><span class="n">lag</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;ACF plot - Close price detrended&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0dae71bf0d7abb615a95efc958ead8b4eaeaf01d2b5382f73a978ed5749a3ddb.png" src="../_images/0dae71bf0d7abb615a95efc958ead8b4eaeaf01d2b5382f73a978ed5749a3ddb.png" />
+</div>
+</div>
+<p>Le graphique des autocorrélations passe à 0, au seuil de confiance de 95%, au retard 14.<br />
+Nous choisissons donc le paramètre <span class="math notranslate nohighlight">\(Q\)</span> valant 14 pour la partie saisonnière du modèle SARIMA.</p>
+</section>
+</section>
+<section id="modele-arima">
+<h2>Modèle ARIMA<a class="headerlink" href="#modele-arima" title="Link to this heading">#</a></h2>
+<p>Cette partie est consacrée à la détermination des paramètres du modèle prédictif ARIMA de paramètres <span class="math notranslate nohighlight">\(p, d, q\)</span> qui désignent respectivement :</p>
+<ul class="simple">
+<li><p>L’ordre autorégressif</p></li>
+<li><p>L’ordre de différenciation pour atteindre la stationnarité</p></li>
+<li><p>L’ordre de moyenne mobile</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">time_series</span> <span class="o">=</span> <span class="n">df_detrend</span><span class="p">[</span><span class="s2">&quot;close_without_season&quot;</span><span class="p">]</span>
+<span class="linenos">2</span><span class="n">time_series</span> <span class="o">=</span> <span class="n">time_series</span><span class="p">[</span><span class="o">~</span><span class="n">time_series</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<span class="linenos">3</span><span class="n">time_series</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date
+2019-09-19     2.746602
+2019-09-20     5.162185
+2019-09-23     3.355712
+2019-09-24     3.423930
+2019-09-25     3.872582
+                ...    
+2021-12-23     4.962022
+2021-12-27    14.379935
+2021-12-28     9.723572
+2021-12-29    10.662810
+2021-12-30     5.430709
+Name: close_without_season, Length: 576, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<section id="determination-de-l-ordre-de-differenciation">
+<h3>Détermination de l’ordre de différenciation<a class="headerlink" href="#determination-de-l-ordre-de-differenciation" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">stationary_time_series</span><span class="p">,</span> <span class="n">num_diffs</span><span class="p">,</span> <span class="n">adfuller_pvalue</span> <span class="o">=</span> <span class="n">check_stationarity_and_difference</span><span class="p">(</span>
+<span class="linenos">2</span>    <span class="n">time_series</span>
+<span class="linenos">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pvalue for adfuller test on differencing order 1 is 0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Une différenciation suffit à obtenir une série stationnaire.<br />
+Nous choisissons donc le paramètres <span class="math notranslate nohighlight">\(d\)</span> valant 1 pour le modèle ARIMA.</p>
+</section>
+<section id="id1">
+<h3>Détermination de l’ordre autorégressif<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">lag</span> <span class="o">=</span> <span class="p">(</span>
+<span class="linenos">2</span>    <span class="nb">len</span><span class="p">(</span><span class="n">stationary_time_series</span><span class="p">)</span> <span class="o">//</span> <span class="mi">10</span>
+<span class="linenos">3</span><span class="p">)</span>  <span class="c1"># Display lags from 0 to 1/10 of time series length</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span>
+<span class="linenos">6</span>    <span class="n">stationary_time_series</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="n">lag</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;PACF plot - Close price detrended&quot;</span>
+<span class="linenos">7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6cbf64f7e10bf0d64f80b2efe47626eb26ce99cd100dd8adaec0ac8af7817f99.png" src="../_images/6cbf64f7e10bf0d64f80b2efe47626eb26ce99cd100dd8adaec0ac8af7817f99.png" />
+</div>
+</div>
+<p>Le graphique des autocorrélations partielles passe à 0, au seuil de confiance de 95%, au deuxième retard.<br />
+Nous choisissons donc le paramètre <span class="math notranslate nohighlight">\(p\)</span> valant 2 pour le modèle ARIMA.</p>
+</section>
+<section id="id2">
+<h3>Détermination de l’ordre de moyenne mobile<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">lag</span> <span class="o">=</span> <span class="p">(</span>
+<span class="linenos">2</span>    <span class="nb">len</span><span class="p">(</span><span class="n">stationary_time_series</span><span class="p">)</span> <span class="o">//</span> <span class="mi">10</span>
+<span class="linenos">3</span><span class="p">)</span>  <span class="c1"># Display lags from 0 to 1/10 of time series length</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">stationary_time_series</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="n">lag</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;ACF plot - Close price detrended&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fe026888f4c5aeb232bd627eca549935401ce289dbd0c298f0ae48def8a042d2.png" src="../_images/fe026888f4c5aeb232bd627eca549935401ce289dbd0c298f0ae48def8a042d2.png" />
+</div>
+</div>
+<p>Le graphique des autocorrélations passe à 0, au seuil de confiance de 95%, au deuxième retard.<br />
+Nous choisissons donc le paramètre <span class="math notranslate nohighlight">\(q\)</span> valant 2 pour le modèle ARIMA.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="detrend.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Décomposition : tendance</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="prediction.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Prédiction du cours boursier</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-des-donnees-traitees-de-la-tendance">Import des données traitées de la tendance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphe-de-saisonnalite-en-utilisant-l-api-statsmodels">Graphe de saisonnalité en utilisant l’API statsmodels</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saisonnalite-mensuelle">Saisonnalité mensuelle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saisonnalite-hebdomadaire">Saisonnalité hebdomadaire</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphe-de-saisonnalite-par-superposition-de-series">Graphe de saisonnalité par superposition de séries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#periodogramme">Périodogramme</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#differenciation-saisonniere">Différenciation saisonnière</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determination-de-l-ordre-autoregressif">Détermination de l’ordre autorégressif</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determination-de-l-ordre-de-moyenne-mobile">Détermination de l’ordre de moyenne mobile</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modele-arima">Modèle ARIMA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determination-de-l-ordre-de-differenciation">Détermination de l’ordre de différenciation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Détermination de l’ordre autorégressif</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Détermination de l’ordre de moyenne mobile</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ab2nour, jExbrayat
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Ab2nour, jExbrayat.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

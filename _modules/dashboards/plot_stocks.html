@@ -1,0 +1,517 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dashboards.plot_stocks &#8212; Stock Analysis  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=19b21d1c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/dashboards/plot_stocks';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Stock Analysis  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">📊 Analyse</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/exploratory-data-analysis.html">Analyse exploratoire</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/detrend.html">Décomposition : tendance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/seasonality.html">Décomposition : saisonnalité</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/prediction.html">Prédiction du cours boursier</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📒 Demo notebooks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../demo-notebooks/detrend_class.html">How to use detrend classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo-notebooks/candlestick_chart_detrend_data.html">How detrended data behave with candlestick chart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo-notebooks/download-data.html">How to download new stock data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 How-to guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../how-to/create-documentation-website.html">How to create documentation website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how-to/code-quality.html">Code quality tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📖 Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docstring/modules.html">Stock Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../docstring/dashboards.html">dashboards package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docstring/functions.html">functions package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../docstring/notebooks.html">notebooks package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for dashboards.plot_stocks</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Dashboard to plot a stock of your choice, showing its candlestick plot.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dash</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dash</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">dcc</span><span class="p">,</span> <span class="n">html</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">plotly.graph_objs</span><span class="w"> </span><span class="kn">import</span> <span class="n">Figure</span>
+
+<span class="n">data_folder</span> <span class="o">=</span> <span class="s2">&quot;data&quot;</span>
+
+<span class="n">stocks_names</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MSFT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TSLA&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">stocks</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Dashboard séries chronologiques&quot;</span>
+
+
+<div class="viewcode-block" id="update_candlestick">
+<a class="viewcode-back" href="../../docstring/dashboards.html#dashboards.plot_stocks.update_candlestick">[docs]</a>
+<span class="nd">@callback</span><span class="p">(</span>
+    <span class="n">Output</span><span class="p">(</span><span class="s2">&quot;stock-candlestick-plot&quot;</span><span class="p">,</span> <span class="s2">&quot;figure&quot;</span><span class="p">),</span> <span class="n">Input</span><span class="p">(</span><span class="s2">&quot;dropdown-selection&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_candlestick</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Figure</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the candlestick plot.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    value : str</span>
+<span class="sd">        The name of the stock you want to display the candlestick plot.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    plotly.graph_objs.Figure</span>
+<span class="sd">        A Plotly figure representing the candlestick plot.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    To update the candlestick plot for a stock with the symbol &#39;AAPL&#39;,</span>
+<span class="sd">    you can call the function like this:</span>
+
+<span class="sd">    &gt;&gt;&gt; fig = update_candlestick(&quot;AAPL&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">stocks</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
+    <span class="c1"># fig_title = f&quot;Cours de l&#39;action {value}&quot;  # todo: plot title figure</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">go</span><span class="o">.</span><span class="n">Candlestick</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+                <span class="nb">open</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Open&quot;</span><span class="p">],</span>
+                <span class="n">high</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;High&quot;</span><span class="p">],</span>
+                <span class="n">low</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Low&quot;</span><span class="p">],</span>
+                <span class="n">close</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Style below</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">xaxis_rangeslider_visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+        <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>  <span class="c1"># background color</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span>  <span class="c1"># figure width</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>  <span class="c1"># figure height</span>
+        <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>  <span class="c1"># remove white space</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+
+
+<div class="viewcode-block" id="update_line_plot">
+<a class="viewcode-back" href="../../docstring/dashboards.html#dashboards.plot_stocks.update_line_plot">[docs]</a>
+<span class="nd">@callback</span><span class="p">(</span><span class="n">Output</span><span class="p">(</span><span class="s2">&quot;stock-line-plot&quot;</span><span class="p">,</span> <span class="s2">&quot;figure&quot;</span><span class="p">),</span> <span class="n">Input</span><span class="p">(</span><span class="s2">&quot;dropdown-selection&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">))</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_line_plot</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Figure</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the line plot.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    value : str</span>
+<span class="sd">        The name of the stock you want to display the candlestick plot.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    plotly.graph_objs.Figure</span>
+<span class="sd">        A Plotly figure representing the line plot.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    To update the line plot for a stock with the symbol &#39;AAPL&#39;,</span>
+<span class="sd">    you can call the function like this:</span>
+
+<span class="sd">    &gt;&gt;&gt; fig = update_line_plot(&quot;AAPL&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">stocks</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Open&quot;</span><span class="p">,</span> <span class="s2">&quot;High&quot;</span><span class="p">,</span> <span class="s2">&quot;Low&quot;</span><span class="p">,</span> <span class="s2">&quot;Close&quot;</span><span class="p">])</span>
+
+    <span class="c1"># Style below</span>
+    <span class="n">font_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">family</span><span class="o">=</span><span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span>
+    <span class="p">)</span>  <span class="c1"># general figure formatting</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+        <span class="n">font</span><span class="o">=</span><span class="n">font_dict</span><span class="p">,</span>  <span class="c1"># font formatting</span>
+        <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>  <span class="c1"># background color</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span>  <span class="c1"># figure width</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>  <span class="c1"># figure height</span>
+        <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>  <span class="c1"># remove white space</span>
+    <span class="p">)</span>
+
+    <span class="c1"># x and y-axis formatting</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span>
+        <span class="c1"># title_text=&#39;Y-axis&#39;,  # axis label</span>
+        <span class="n">showline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># add line at x=0</span>
+        <span class="n">linecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>  <span class="c1"># line color</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span>  <span class="c1"># line size</span>
+        <span class="n">ticks</span><span class="o">=</span><span class="s2">&quot;outside&quot;</span><span class="p">,</span>  <span class="c1"># ticks outside axis</span>
+        <span class="n">tickfont</span><span class="o">=</span><span class="n">font_dict</span><span class="p">,</span>  <span class="c1"># tick label font</span>
+        <span class="n">mirror</span><span class="o">=</span><span class="s2">&quot;allticks&quot;</span><span class="p">,</span>  <span class="c1"># add ticks to top/right axes</span>
+        <span class="n">tickwidth</span><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span>  <span class="c1"># tick width</span>
+        <span class="n">tickcolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>  <span class="c1"># tick color</span>
+    <span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span>
+        <span class="c1"># title_text=&#39;X-axis&#39;,</span>
+        <span class="n">showline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">showticklabels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">linecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span>
+        <span class="n">ticks</span><span class="o">=</span><span class="s2">&quot;outside&quot;</span><span class="p">,</span>
+        <span class="n">tickfont</span><span class="o">=</span><span class="n">font_dict</span><span class="p">,</span>
+        <span class="n">mirror</span><span class="o">=</span><span class="s2">&quot;allticks&quot;</span><span class="p">,</span>
+        <span class="n">tickwidth</span><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span>
+        <span class="n">tickcolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">stock_name</span> <span class="ow">in</span> <span class="n">stocks_names</span><span class="p">:</span>
+        <span class="n">stocks</span><span class="p">[</span><span class="n">stock_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_folder</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">stock_name</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">&quot;Date&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">Dash</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Séries chronologiques&quot;</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">H1</span><span class="p">(</span><span class="n">children</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;textAlign&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">}),</span>
+            <span class="n">dcc</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span><span class="n">stocks_names</span><span class="p">,</span> <span class="n">stocks_names</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;dropdown-selection&quot;</span><span class="p">),</span>
+            <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">dcc</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span>
+                        <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;stock-candlestick-plot&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;inline-block&quot;</span><span class="p">}</span>
+                    <span class="p">),</span>
+                    <span class="n">dcc</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;stock-line-plot&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;inline-block&quot;</span><span class="p">}),</span>
+                <span class="p">]</span>
+            <span class="p">),</span>
+            <span class="c1"># dcc.Graph(id=&#39;stock-candlestick-plot&#39;),</span>
+            <span class="c1"># dcc.Graph(id=&#39;stock-line-plot&#39;)</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ab2nour, jExbrayat
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Ab2nour, jExbrayat.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

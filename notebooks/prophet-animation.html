@@ -1,0 +1,1499 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Prophet &#8212; Stock Analysis  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=19b21d1c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/prophet-animation';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Stock Analysis  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">📊 Analyse</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exploratory-data-analysis.html">Analyse exploratoire</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detrend.html">Décomposition : tendance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="seasonality.html">Décomposition : saisonnalité</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prediction.html">Prédiction du cours boursier</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📒 Demo notebooks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../demo-notebooks/detrend_class.html">How to use detrend classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo-notebooks/candlestick_chart_detrend_data.html">How detrended data behave with candlestick chart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo-notebooks/download-data.html">How to download new stock data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 How-to guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../how-to/create-documentation-website.html">How to create documentation website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/code-quality.html">Code quality tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📖 Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../docstring/modules.html">Stock Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../docstring/dashboards.html">dashboards package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../docstring/functions.html">functions package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../docstring/notebooks.html">notebooks package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/prophet-animation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Prophet</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Prophet</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-traitement-pour-prophet">Pré-traitement pour Prophet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prédiction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calcul-de-la-prediction">Calcul de la prédiction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#affichage-de-la-prediction">Affichage de la prédiction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#prophet-manual-plot">Prophet manual plot</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#animation-working-but-not-satisfying">Animation (working but not satisfying)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#improve-animation">Improve animation</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.animation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">animation</span>
+<span class="linenos">2</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="linenos">3</span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="linenos">4</span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="linenos">5</span><span class="kn">from</span><span class="w"> </span><span class="nn">prophet</span><span class="w"> </span><span class="kn">import</span> <span class="n">Prophet</span>
+<span class="linenos">6</span>
+<span class="linenos">7</span><span class="kn">from</span><span class="w"> </span><span class="nn">src.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_notebook</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">init_notebook</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="prophet">
+<h1>Prophet<a class="headerlink" href="#prophet" title="Link to this heading">#</a></h1>
+<section id="pre-traitement-pour-prophet">
+<h2>Pré-traitement pour Prophet<a class="headerlink" href="#pre-traitement-pour-prophet" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># relecture des données (sans detrend)</span>
+<span class="linenos">2</span><span class="n">data_folder</span> <span class="o">=</span> <span class="s2">&quot;data/raw&quot;</span>
+<span class="linenos">3</span><span class="n">stock_name</span> <span class="o">=</span> <span class="s2">&quot;AAPL&quot;</span>
+<span class="linenos">4</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+<span class="linenos">5</span>    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_folder</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">stock_name</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">&quot;Date&quot;</span>
+<span class="linenos">6</span><span class="p">)</span>
+<span class="linenos">7</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="w"> </span><span class="si">= }</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>df.shape = (756, 6)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">train_start_date</span> <span class="o">=</span> <span class="s2">&quot;2019&quot;</span>
+<span class="linenos">2</span><span class="n">train_end_date</span> <span class="o">=</span> <span class="s2">&quot;2021-10-01&quot;</span>
+<span class="linenos">3</span><span class="n">df_train</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_start_date</span><span class="p">:</span><span class="n">train_end_date</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="linenos">4</span><span class="n">df_test</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_end_date</span><span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;time_dummy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_train</span><span class="p">))</span>
+<span class="linenos">2</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;time_dummy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_test</span><span class="p">))</span>
+<span class="linenos">3</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;time_dummy&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_train</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day</span>
+<span class="linenos">5</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_test</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">df_train</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(694, 8)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">x</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[[]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">x_col</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;time_dummy&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">]</span>
+<span class="linenos">2</span><span class="n">y_col</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;ds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_train</span><span class="o">.</span><span class="n">index</span>
+<span class="linenos">2</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[[</span><span class="s2">&quot;Close&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">df_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Adj Close</th>
+      <th>Volume</th>
+      <th>time_dummy</th>
+      <th>day</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-10-01</th>
+      <td>141.899994</td>
+      <td>142.919998</td>
+      <td>139.110001</td>
+      <td>142.649994</td>
+      <td>141.018539</td>
+      <td>94639600</td>
+      <td>694</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2021-10-04</th>
+      <td>141.759995</td>
+      <td>142.210007</td>
+      <td>138.270004</td>
+      <td>139.139999</td>
+      <td>137.548676</td>
+      <td>98322000</td>
+      <td>695</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2021-10-05</th>
+      <td>139.490005</td>
+      <td>142.240005</td>
+      <td>139.360001</td>
+      <td>141.110001</td>
+      <td>139.496140</td>
+      <td>80861100</td>
+      <td>696</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2021-10-06</th>
+      <td>139.470001</td>
+      <td>142.149994</td>
+      <td>138.369995</td>
+      <td>142.000000</td>
+      <td>140.375946</td>
+      <td>83221100</td>
+      <td>697</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2021-10-07</th>
+      <td>143.059998</td>
+      <td>144.220001</td>
+      <td>142.720001</td>
+      <td>143.289993</td>
+      <td>141.651215</td>
+      <td>61732700</td>
+      <td>698</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">x_test</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="n">x_col</span><span class="p">]</span>
+<span class="linenos">2</span><span class="n">y_test</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="n">y_col</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">x</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ds</th>
+      <th>y</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2019-01-02</th>
+      <td>2019-01-02</td>
+      <td>39.480000</td>
+    </tr>
+    <tr>
+      <th>2019-01-03</th>
+      <td>2019-01-03</td>
+      <td>35.547501</td>
+    </tr>
+    <tr>
+      <th>2019-01-04</th>
+      <td>2019-01-04</td>
+      <td>37.064999</td>
+    </tr>
+    <tr>
+      <th>2019-01-07</th>
+      <td>2019-01-07</td>
+      <td>36.982498</td>
+    </tr>
+    <tr>
+      <th>2019-01-08</th>
+      <td>2019-01-08</td>
+      <td>37.687500</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="prediction">
+<h2>Prédiction<a class="headerlink" href="#prediction" title="Link to this heading">#</a></h2>
+<section id="calcul-de-la-prediction">
+<h3>Calcul de la prédiction<a class="headerlink" href="#calcul-de-la-prediction" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">model</span> <span class="o">=</span> <span class="n">Prophet</span><span class="p">()</span>
+<span class="linenos">2</span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12:40:23 - cmdstanpy - INFO - Chain [1] start processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12:40:23 - cmdstanpy - INFO - Chain [1] done processing
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;prophet.forecaster.Prophet at 0x7f8f96a17620&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">future</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="linenos">2</span><span class="n">future</span><span class="p">[</span><span class="s2">&quot;ds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">index</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">forecast</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+<span class="linenos">2</span><span class="n">forecast</span><span class="p">[[</span><span class="s2">&quot;ds&quot;</span><span class="p">,</span> <span class="s2">&quot;yhat&quot;</span><span class="p">,</span> <span class="s2">&quot;yhat_lower&quot;</span><span class="p">,</span> <span class="s2">&quot;yhat_upper&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ds</th>
+      <th>yhat</th>
+      <th>yhat_lower</th>
+      <th>yhat_upper</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>58</th>
+      <td>2021-12-23</td>
+      <td>163.485849</td>
+      <td>157.426037</td>
+      <td>170.239443</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>2021-12-27</td>
+      <td>164.851525</td>
+      <td>158.991212</td>
+      <td>171.903764</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>2021-12-28</td>
+      <td>165.169482</td>
+      <td>158.760092</td>
+      <td>172.229201</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>2021-12-29</td>
+      <td>165.506546</td>
+      <td>159.452344</td>
+      <td>172.494140</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>2021-12-30</td>
+      <td>165.524170</td>
+      <td>159.654795</td>
+      <td>172.964808</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="affichage-de-la-prediction">
+<h3>Affichage de la prédiction<a class="headerlink" href="#affichage-de-la-prediction" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="linenos">2</span><span class="n">fig1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">forecast</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="linenos">3</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Close&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_end_date</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/stock-analysis/stock-analysis/.venv/lib/python3.13/site-packages/pandas/plotting/_matplotlib/core.py:981: UserWarning: This axis already has a converter set and is updating to a potentially incompatible converter
+  return ax.plot(*args, **kwds)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f8f9663ee90&gt;
+</pre></div>
+</div>
+<img alt="../_images/c06e00d6dec5f141ab41382fbed5e139e412b14244a3d74d557ea63c891910e2.png" src="../_images/c06e00d6dec5f141ab41382fbed5e139e412b14244a3d74d557ea63c891910e2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">forecast</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ds</th>
+      <th>trend</th>
+      <th>yhat_lower</th>
+      <th>yhat_upper</th>
+      <th>trend_lower</th>
+      <th>trend_upper</th>
+      <th>additive_terms</th>
+      <th>additive_terms_lower</th>
+      <th>additive_terms_upper</th>
+      <th>weekly</th>
+      <th>weekly_lower</th>
+      <th>weekly_upper</th>
+      <th>yearly</th>
+      <th>yearly_lower</th>
+      <th>yearly_upper</th>
+      <th>multiplicative_terms</th>
+      <th>multiplicative_terms_lower</th>
+      <th>multiplicative_terms_upper</th>
+      <th>yhat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2021-10-01</td>
+      <td>150.702288</td>
+      <td>142.801825</td>
+      <td>151.188680</td>
+      <td>150.702288</td>
+      <td>150.702288</td>
+      <td>-3.705472</td>
+      <td>-3.705472</td>
+      <td>-3.705472</td>
+      <td>-2.303254</td>
+      <td>-2.303254</td>
+      <td>-2.303254</td>
+      <td>-1.402217</td>
+      <td>-1.402217</td>
+      <td>-1.402217</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>146.996816</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2021-10-04</td>
+      <td>150.981555</td>
+      <td>144.294753</td>
+      <td>152.332969</td>
+      <td>150.981555</td>
+      <td>150.981555</td>
+      <td>-2.750752</td>
+      <td>-2.750752</td>
+      <td>-2.750752</td>
+      <td>-2.245650</td>
+      <td>-2.245650</td>
+      <td>-2.245650</td>
+      <td>-0.505102</td>
+      <td>-0.505102</td>
+      <td>-0.505102</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>148.230803</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2021-10-05</td>
+      <td>151.074644</td>
+      <td>144.497386</td>
+      <td>152.711693</td>
+      <td>151.074644</td>
+      <td>151.074644</td>
+      <td>-2.376332</td>
+      <td>-2.376332</td>
+      <td>-2.376332</td>
+      <td>-2.177689</td>
+      <td>-2.177689</td>
+      <td>-2.177689</td>
+      <td>-0.198643</td>
+      <td>-0.198643</td>
+      <td>-0.198643</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>148.698312</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2021-10-06</td>
+      <td>151.167733</td>
+      <td>145.056539</td>
+      <td>153.458411</td>
+      <td>151.167733</td>
+      <td>151.167733</td>
+      <td>-1.950305</td>
+      <td>-1.950305</td>
+      <td>-1.950305</td>
+      <td>-2.049164</td>
+      <td>-2.049164</td>
+      <td>-2.049164</td>
+      <td>0.098859</td>
+      <td>0.098859</td>
+      <td>0.098859</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>149.217428</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2021-10-07</td>
+      <td>151.260822</td>
+      <td>145.294734</td>
+      <td>153.276163</td>
+      <td>151.260822</td>
+      <td>151.260822</td>
+      <td>-1.819700</td>
+      <td>-1.819700</td>
+      <td>-1.819700</td>
+      <td>-2.200123</td>
+      <td>-2.200123</td>
+      <td>-2.200123</td>
+      <td>0.380424</td>
+      <td>0.380424</td>
+      <td>0.380424</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>149.441122</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>2021-12-23</td>
+      <td>158.428668</td>
+      <td>157.426037</td>
+      <td>170.239443</td>
+      <td>154.163328</td>
+      <td>163.548673</td>
+      <td>5.057181</td>
+      <td>5.057181</td>
+      <td>5.057181</td>
+      <td>-2.200123</td>
+      <td>-2.200123</td>
+      <td>-2.200123</td>
+      <td>7.257305</td>
+      <td>7.257305</td>
+      <td>7.257305</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>163.485849</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>2021-12-27</td>
+      <td>158.801024</td>
+      <td>158.991212</td>
+      <td>171.903764</td>
+      <td>154.392920</td>
+      <td>164.114042</td>
+      <td>6.050501</td>
+      <td>6.050501</td>
+      <td>6.050501</td>
+      <td>-2.245650</td>
+      <td>-2.245650</td>
+      <td>-2.245650</td>
+      <td>8.296151</td>
+      <td>8.296151</td>
+      <td>8.296151</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>164.851525</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>2021-12-28</td>
+      <td>158.894113</td>
+      <td>158.760092</td>
+      <td>172.229201</td>
+      <td>154.370054</td>
+      <td>164.308392</td>
+      <td>6.275369</td>
+      <td>6.275369</td>
+      <td>6.275369</td>
+      <td>-2.177689</td>
+      <td>-2.177689</td>
+      <td>-2.177689</td>
+      <td>8.453057</td>
+      <td>8.453057</td>
+      <td>8.453057</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>165.169482</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>2021-12-29</td>
+      <td>158.987202</td>
+      <td>159.452344</td>
+      <td>172.494140</td>
+      <td>154.331283</td>
+      <td>164.537737</td>
+      <td>6.519344</td>
+      <td>6.519344</td>
+      <td>6.519344</td>
+      <td>-2.049164</td>
+      <td>-2.049164</td>
+      <td>-2.049164</td>
+      <td>8.568508</td>
+      <td>8.568508</td>
+      <td>8.568508</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>165.506546</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>2021-12-30</td>
+      <td>159.080291</td>
+      <td>159.654795</td>
+      <td>172.964808</td>
+      <td>154.295934</td>
+      <td>164.815938</td>
+      <td>6.443880</td>
+      <td>6.443880</td>
+      <td>6.443880</td>
+      <td>-2.200123</td>
+      <td>-2.200123</td>
+      <td>-2.200123</td>
+      <td>8.644003</td>
+      <td>8.644003</td>
+      <td>8.644003</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>165.524170</td>
+    </tr>
+  </tbody>
+</table>
+<p>63 rows × 19 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="prophet-manual-plot">
+<h1>Prophet manual plot<a class="headerlink" href="#prophet-manual-plot" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">future</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time_dummy</th>
+      <th>day</th>
+      <th>ds</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-10-01</th>
+      <td>694</td>
+      <td>1</td>
+      <td>2021-10-01</td>
+    </tr>
+    <tr>
+      <th>2021-10-04</th>
+      <td>695</td>
+      <td>4</td>
+      <td>2021-10-04</td>
+    </tr>
+    <tr>
+      <th>2021-10-05</th>
+      <td>696</td>
+      <td>5</td>
+      <td>2021-10-05</td>
+    </tr>
+    <tr>
+      <th>2021-10-06</th>
+      <td>697</td>
+      <td>6</td>
+      <td>2021-10-06</td>
+    </tr>
+    <tr>
+      <th>2021-10-07</th>
+      <td>698</td>
+      <td>7</td>
+      <td>2021-10-07</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2021-12-23</th>
+      <td>752</td>
+      <td>23</td>
+      <td>2021-12-23</td>
+    </tr>
+    <tr>
+      <th>2021-12-27</th>
+      <td>753</td>
+      <td>27</td>
+      <td>2021-12-27</td>
+    </tr>
+    <tr>
+      <th>2021-12-28</th>
+      <td>754</td>
+      <td>28</td>
+      <td>2021-12-28</td>
+    </tr>
+    <tr>
+      <th>2021-12-29</th>
+      <td>755</td>
+      <td>29</td>
+      <td>2021-12-29</td>
+    </tr>
+    <tr>
+      <th>2021-12-30</th>
+      <td>756</td>
+      <td>30</td>
+      <td>2021-12-30</td>
+    </tr>
+  </tbody>
+</table>
+<p>63 rows × 3 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="c1"># Suppose que &#39;df&#39; contient les données historiques et &#39;forecast&#39; les prédictions</span>
+<span class="linenos"> 4</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># # 1️⃣ Données réelles</span>
+<span class="linenos"> 7</span><span class="c1"># ax.plot(future[&#39;ds&#39;], future[&#39;Close&#39;], &#39;k.&#39;, label=&#39;Observations&#39;, alpha=0.6)</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># 2️⃣ Prédictions</span>
+<span class="linenos">10</span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">forecast</span><span class="p">[</span><span class="s2">&quot;ds&quot;</span><span class="p">],</span> <span class="n">forecast</span><span class="p">[</span><span class="s2">&quot;yhat&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Prédiction&quot;</span><span class="p">)</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="c1"># 3️⃣ Intervalle de confiance</span>
+<span class="linenos">13</span><span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+<span class="linenos">14</span>    <span class="n">forecast</span><span class="p">[</span><span class="s2">&quot;ds&quot;</span><span class="p">],</span>
+<span class="linenos">15</span>    <span class="n">forecast</span><span class="p">[</span><span class="s2">&quot;yhat_lower&quot;</span><span class="p">],</span>
+<span class="linenos">16</span>    <span class="n">forecast</span><span class="p">[</span><span class="s2">&quot;yhat_upper&quot;</span><span class="p">],</span>
+<span class="linenos">17</span>    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+<span class="linenos">18</span>    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+<span class="linenos">19</span>    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Intervalle de confiance&quot;</span><span class="p">,</span>
+<span class="linenos">20</span><span class="p">)</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="c1"># 4️⃣ Options esthétiques</span>
+<span class="linenos">23</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Prévision avec Prophet (personnalisée)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="linenos">24</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
+<span class="linenos">25</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Valeur prédite&quot;</span><span class="p">)</span>
+<span class="linenos">26</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="linenos">27</span><span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span>
+<span class="linenos">30</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Close&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_end_date</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">)</span>
+<span class="linenos">31</span>
+<span class="linenos">32</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/stock-analysis/stock-analysis/.venv/lib/python3.13/site-packages/pandas/plotting/_matplotlib/core.py:981: UserWarning: This axis already has a converter set and is updating to a potentially incompatible converter
+  return ax.plot(*args, **kwds)
+</pre></div>
+</div>
+<img alt="../_images/07e7ebc8d401caeac7aba747abaa332bff59d73e2d7a57701660b423324632ee.png" src="../_images/07e7ebc8d401caeac7aba747abaa332bff59d73e2d7a57701660b423324632ee.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="animation-working-but-not-satisfying">
+<h1>Animation (working but not satisfying)<a class="headerlink" href="#animation-working-but-not-satisfying" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_end_date</span><span class="p">:]</span>
+<span class="linenos">2</span><span class="n">future_x</span> <span class="o">=</span> <span class="n">forecast</span><span class="p">[</span><span class="s2">&quot;ds&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="linenos">2</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Time Series Forecasting&quot;</span><span class="p">)</span>
+<span class="linenos">3</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time Index&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Target Value&quot;</span><span class="p">)</span>
+<span class="linenos">5</span><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">future_x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;teal&quot;</span><span class="p">)</span>
+<span class="linenos">6</span>
+<span class="linenos">7</span><span class="p">(</span><span class="n">line</span><span class="p">,)</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;navy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/facb519df7e03f8f8ee8d15532a7bf4bfa1f5a183bf7338ac65651c7b12b0fcf.png" src="../_images/facb519df7e03f8f8ee8d15532a7bf4bfa1f5a183bf7338ac65651c7b12b0fcf.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">beginning_x</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="linenos"> 2</span><span class="n">beginning_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_end_date</span><span class="p">:]</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_end_date</span><span class="p">:]</span> <span class="o">-</span> <span class="mi">100</span>
+<span class="linenos"> 5</span><span class="n">future_x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>  <span class="c1"># forecast[&quot;ds&quot;]</span>
+<span class="linenos"> 6</span><span class="n">future_mean</span> <span class="o">=</span> <span class="n">forecast</span><span class="p">[</span><span class="s2">&quot;yhat&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">100</span>
+<span class="linenos"> 7</span><span class="n">future_std</span> <span class="o">=</span> <span class="n">forecast</span><span class="p">[</span><span class="s2">&quot;yhat&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># Création de la figure</span>
+<span class="linenos">10</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="linenos">11</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Time Series Forecasting&quot;</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time Index&quot;</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Target Value&quot;</span><span class="p">)</span>
+<span class="linenos">14</span><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">future_x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;teal&quot;</span><span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="p">(</span><span class="n">line</span><span class="p">,)</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;navy&quot;</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">fill</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="c1"># Limites initiales</span>
+<span class="linenos">20</span><span class="c1"># ax.set_xlim(0, 25)</span>
+<span class="linenos">21</span><span class="c1"># ax.set_ylim(-1, 1.5)</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="k">def</span><span class="w"> </span><span class="nf">init</span><span class="p">():</span>
+<span class="linenos">25</span>    <span class="n">line</span><span class="o">.</span><span class="n">set_data</span><span class="p">([],</span> <span class="p">[])</span>
+<span class="linenos">26</span>    <span class="k">return</span> <span class="p">(</span><span class="n">line</span><span class="p">,)</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="k">def</span><span class="w"> </span><span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+<span class="linenos">30</span>    <span class="k">global</span> <span class="n">fill</span>
+<span class="linenos">31</span>    <span class="k">if</span> <span class="n">fill</span><span class="p">:</span>
+<span class="linenos">32</span>        <span class="n">fill</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span>    <span class="n">x_data</span> <span class="o">=</span> <span class="n">future_x</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span>
+<span class="linenos">35</span>    <span class="n">y_mean</span> <span class="o">=</span> <span class="n">future_mean</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span>
+<span class="linenos">36</span>    <span class="n">y_std</span> <span class="o">=</span> <span class="n">future_std</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span>
+<span class="linenos">37</span>
+<span class="linenos">38</span>    <span class="n">line</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_mean</span><span class="p">)</span>
+<span class="linenos">39</span>
+<span class="linenos">40</span>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">41</span>        <span class="n">fill</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+<span class="linenos">42</span>            <span class="n">x_data</span><span class="p">,</span> <span class="n">y_mean</span> <span class="o">-</span> <span class="n">y_std</span><span class="p">,</span> <span class="n">y_mean</span> <span class="o">+</span> <span class="n">y_std</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span>
+<span class="linenos">43</span>        <span class="p">)</span>
+<span class="linenos">44</span>        <span class="n">target_xmax</span> <span class="o">=</span> <span class="mi">25</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mf">1.5</span>
+<span class="linenos">45</span>        <span class="n">target_ymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">y_mean</span> <span class="o">+</span> <span class="n">y_std</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="linenos">46</span>    <span class="k">else</span><span class="p">:</span>
+<span class="linenos">47</span>        <span class="n">target_xmax</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="linenos">48</span>        <span class="n">target_ymax</span> <span class="o">=</span> <span class="mf">1.5</span>
+<span class="linenos">49</span>
+<span class="linenos">50</span>    <span class="c1"># --- Zoom fluide (effet easing) ---</span>
+<span class="linenos">51</span>    <span class="n">current_xlim</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+<span class="linenos">52</span>    <span class="n">current_ylim</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+<span class="linenos">53</span>    <span class="n">smooth_xmax</span> <span class="o">=</span> <span class="n">current_xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">*</span> <span class="p">(</span><span class="n">target_xmax</span> <span class="o">-</span> <span class="n">current_xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="linenos">54</span>    <span class="n">smooth_ymax</span> <span class="o">=</span> <span class="n">current_ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">*</span> <span class="p">(</span><span class="n">target_ymax</span> <span class="o">-</span> <span class="n">current_ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="linenos">55</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">smooth_xmax</span><span class="p">)</span>
+<span class="linenos">56</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">smooth_ymax</span><span class="p">)</span>
+<span class="linenos">57</span>    <span class="c1"># -----------------------------------</span>
+<span class="linenos">58</span>
+<span class="linenos">59</span>    <span class="k">return</span> <span class="n">line</span><span class="p">,</span> <span class="n">fill</span> <span class="k">if</span> <span class="n">fill</span> <span class="k">else</span> <span class="n">line</span>
+<span class="linenos">60</span>
+<span class="linenos">61</span>
+<span class="linenos">62</span><span class="n">ani</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span>
+<span class="linenos">63</span>    <span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">init_func</span><span class="o">=</span><span class="n">init</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">future_x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">False</span>
+<span class="linenos">64</span><span class="p">)</span>
+<span class="linenos">65</span>
+<span class="linenos">66</span><span class="n">ani</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;prophet.gif&quot;</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s2">&quot;pillow&quot;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="linenos">67</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7d4e0e203bcc648cf3e8aa4a7386e219c3748b45aba01df1ef4131a031b66904.png" src="../_images/7d4e0e203bcc648cf3e8aa4a7386e219c3748b45aba01df1ef4131a031b66904.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="improve-animation">
+<h1>Improve animation<a class="headerlink" href="#improve-animation" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>63
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">TEMP_OFFSET_TO_DELETE</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="linenos"> 2</span><span class="n">beginning_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">150</span><span class="p">:</span><span class="o">-</span><span class="mi">63</span><span class="p">]</span> <span class="o">-</span> <span class="n">TEMP_OFFSET_TO_DELETE</span>
+<span class="linenos"> 3</span><span class="n">beginning_x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">beginning_y</span><span class="p">))</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_end_date</span><span class="p">:]</span> <span class="o">-</span> <span class="n">TEMP_OFFSET_TO_DELETE</span>
+<span class="linenos"> 6</span><span class="n">future_x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">beginning_y</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">beginning_y</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>  <span class="c1"># forecast[&quot;ds&quot;]</span>
+<span class="linenos"> 7</span><span class="n">future_mean</span> <span class="o">=</span> <span class="n">forecast</span><span class="p">[</span><span class="s2">&quot;yhat&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">TEMP_OFFSET_TO_DELETE</span>
+<span class="linenos"> 8</span><span class="n">future_std</span> <span class="o">=</span> <span class="n">forecast</span><span class="p">[</span><span class="s2">&quot;yhat&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Création de la figure</span>
+<span class="linenos">11</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="linenos">12</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Time Series Forecasting&quot;</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time Index&quot;</span><span class="p">)</span>
+<span class="linenos">14</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Target Value&quot;</span><span class="p">)</span>
+<span class="linenos">15</span><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">beginning_x</span><span class="p">,</span> <span class="n">beginning_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;teal&quot;</span><span class="p">)</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="p">(</span><span class="n">line</span><span class="p">,)</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;navy&quot;</span><span class="p">)</span>
+<span class="linenos">18</span><span class="n">fill</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="c1"># Limites initiales</span>
+<span class="linenos">21</span><span class="c1"># ax.set_xlim(0, 25)</span>
+<span class="linenos">22</span><span class="c1"># ax.set_ylim(-1, 1.5)</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span><span class="k">def</span><span class="w"> </span><span class="nf">init</span><span class="p">():</span>
+<span class="linenos">26</span>    <span class="n">line</span><span class="o">.</span><span class="n">set_data</span><span class="p">([],</span> <span class="p">[])</span>
+<span class="linenos">27</span>    <span class="k">return</span> <span class="p">(</span><span class="n">line</span><span class="p">,)</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span>
+<span class="linenos">30</span><span class="k">def</span><span class="w"> </span><span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+<span class="linenos">31</span>    <span class="k">global</span> <span class="n">fill</span>
+<span class="linenos">32</span>    <span class="k">if</span> <span class="n">fill</span><span class="p">:</span>
+<span class="linenos">33</span>        <span class="n">fill</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span>    <span class="n">x_data</span> <span class="o">=</span> <span class="n">future_x</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span>
+<span class="linenos">36</span>    <span class="n">y_mean</span> <span class="o">=</span> <span class="n">future_mean</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span>
+<span class="linenos">37</span>    <span class="n">y_std</span> <span class="o">=</span> <span class="n">future_std</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span>
+<span class="linenos">38</span>
+<span class="linenos">39</span>    <span class="n">line</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_mean</span><span class="p">)</span>
+<span class="linenos">40</span>
+<span class="linenos">41</span>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">42</span>        <span class="n">fill</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+<span class="linenos">43</span>            <span class="n">x_data</span><span class="p">,</span> <span class="n">y_mean</span> <span class="o">-</span> <span class="n">y_std</span><span class="p">,</span> <span class="n">y_mean</span> <span class="o">+</span> <span class="n">y_std</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span>
+<span class="linenos">44</span>        <span class="p">)</span>
+<span class="linenos">45</span>        <span class="n">target_xmax</span> <span class="o">=</span> <span class="mi">25</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mf">1.5</span>
+<span class="linenos">46</span>        <span class="n">target_ymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">y_mean</span> <span class="o">+</span> <span class="n">y_std</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="linenos">47</span>    <span class="k">else</span><span class="p">:</span>
+<span class="linenos">48</span>        <span class="n">target_xmax</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="linenos">49</span>        <span class="n">target_ymax</span> <span class="o">=</span> <span class="mf">1.5</span>
+<span class="linenos">50</span>
+<span class="linenos">51</span>    <span class="c1"># --- Zoom fluide (effet easing) ---</span>
+<span class="linenos">52</span>    <span class="n">current_xlim</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+<span class="linenos">53</span>    <span class="n">current_ylim</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+<span class="linenos">54</span>    <span class="n">smooth_xmax</span> <span class="o">=</span> <span class="n">current_xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">*</span> <span class="p">(</span><span class="n">target_xmax</span> <span class="o">-</span> <span class="n">current_xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="linenos">55</span>    <span class="n">smooth_ymax</span> <span class="o">=</span> <span class="n">current_ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">*</span> <span class="p">(</span><span class="n">target_ymax</span> <span class="o">-</span> <span class="n">current_ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="linenos">56</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">smooth_xmax</span><span class="p">)</span>
+<span class="linenos">57</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">smooth_ymax</span><span class="p">)</span>
+<span class="linenos">58</span>    <span class="c1"># -----------------------------------</span>
+<span class="linenos">59</span>
+<span class="linenos">60</span>    <span class="k">return</span> <span class="n">line</span><span class="p">,</span> <span class="n">fill</span> <span class="k">if</span> <span class="n">fill</span> <span class="k">else</span> <span class="n">line</span>
+<span class="linenos">61</span>
+<span class="linenos">62</span>
+<span class="linenos">63</span><span class="n">ani</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span>
+<span class="linenos">64</span>    <span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">init_func</span><span class="o">=</span><span class="n">init</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">future_x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">False</span>
+<span class="linenos">65</span><span class="p">)</span>
+<span class="linenos">66</span>
+<span class="linenos">67</span><span class="n">ani</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;prophet2.gif&quot;</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s2">&quot;pillow&quot;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="linenos">68</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1a26adca80878bf13d70ea54ce1d2e7689a037683f521275d2a195fc92501a6e.png" src="../_images/1a26adca80878bf13d70ea54ce1d2e7689a037683f521275d2a195fc92501a6e.png" />
+</div>
+</div>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Prophet</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-traitement-pour-prophet">Pré-traitement pour Prophet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prédiction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calcul-de-la-prediction">Calcul de la prédiction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#affichage-de-la-prediction">Affichage de la prédiction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#prophet-manual-plot">Prophet manual plot</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#animation-working-but-not-satisfying">Animation (working but not satisfying)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#improve-animation">Improve animation</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ab2nour, jExbrayat
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Ab2nour, jExbrayat.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
